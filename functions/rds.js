@@ -52,12 +52,9 @@ export async function onRequestPost(context) {
         traffic_term:    d.traffic_term    || ''
       }
     };
-    const r2 = await fetch('https://api.rd.station.com/platform/conversions', {
+    const r2 = await fetch('https://api.rd.services/platform/conversions?api_key=ZjYlPgOOuAATeDCrdiOcbSTVowlXHcbewjgk', {
       method: 'POST',
-      headers: {
-        'Authorization': 'Bearer 7cef1639a2a28c15830fc1fb73e9813b',
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     log.platform = { status: r2.status, body: await r2.text() };
