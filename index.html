@@ -150,7 +150,7 @@
             <li>Confirmação pela central após a reserva.</li>
           </ul>
         </div>
-        <form class="form reveal" id="bookingForm">
+        <div class="form reveal" id="bookingForm">
           <h3>Sua mesa espera por vocês</h3>
           <p class="form-intro">Preencha os dados para reservar este momento.</p>
           <div class="form-row">
@@ -176,11 +176,9 @@
             <div><span>Total</span><b id="sumTotal">R$ 590</b></div>
             <div><span>Evento</span><b>20h às 00h</b></div>
           </div>
-          <button class="btn btn-primary" type="submit" style="width:100%">Garantir minha mesa</button>
-          <a class="btn btn-secondary" id="centralLink" style="width:100%;margin-top:.75rem" href="#" target="_blank" rel="noopener">Falar com a central</a>
-          <small>Você receberá a orientação de confirmação e pagamento para concluir sua reserva.</small>
-          <div class="success" id="successBox"></div>
-        </form>
+          <a class="btn btn-primary" id="centralLink" style="width:100%" href="#" target="_blank" rel="noopener">Reservar pela central</a>
+          <small>Você será direcionado ao WhatsApp da central com os dados da sua solicitação.</small>
+        </div>
       </div>
     </section>
 
@@ -220,11 +218,12 @@
     const parallax=qsa("[data-parallax]");addEventListener("scroll",()=>{parallax.forEach(el=>{const speed=parseFloat(el.dataset.parallax||0);el.style.transform=`translateY(${scrollY*speed}px)`})},{passive:true});
     const slotRoot=qs("#slots");slotRoot.innerHTML=slots.map((s,i)=>`<label class="slot"><input type="radio" name="slot" value="${s}" ${i===0?"checked":""}><span>${s}</span></label>`).join("");
     function setParty(value){const next=Math.max(2,Math.min(12,value));qs("#party").value=next;qs("#partyOutput").textContent=`${next} ${next===1?"pessoa":"pessoas"}`;refreshSummary()}
-    function refreshSummary(){const people=parseInt(qs("#party").value,10);qs("#sumPeople").textContent=people;qs("#sumTotal").textContent=BRL.format(people*pricePerPerson);const msg=`Gostaria de saber mais sobre a noite dos namorados. Tenho interesse em reservar para ${people} pessoas no dia 12/06/2026.`;qs("#centralLink").href=`https://wa.me/558235121004?text=${encodeURIComponent(msg)}`}
+    function refreshSummary(){const people=parseInt(qs("#party").value,10);const slot=qs("input[name='slot']:checked")?.value||"20h";const name=qs("#name")?.value.trim();qs("#sumPeople").textContent=people;qs("#sumTotal").textContent=BRL.format(people*pricePerPerson);const intro=name?`Olá, sou ${name}. `:"Olá. ";const msg=`${intro}Gostaria de reservar ${people} lugares para o Dia dos Namorados do Sais, no horário das ${slot}. Tag: LP_NAMORADOS_SAIS_2026.`;qs("#centralLink").href=`https://wa.me/558235121004?text=${encodeURIComponent(msg)}`}
     qs("#partyMinus").addEventListener("click",()=>setParty(parseInt(qs("#party").value,10)-1));
     qs("#partyPlus").addEventListener("click",()=>setParty(parseInt(qs("#party").value,10)+1));
+    qs("#name").addEventListener("input",refreshSummary);
+    qsa("input[name='slot']").forEach(el=>el.addEventListener("change",refreshSummary));
     refreshSummary();
-    qs("#bookingForm").addEventListener("submit",e=>{e.preventDefault();const form=new FormData(e.currentTarget);const people=parseInt(form.get("party"),10);const slot=form.get("slot");const used=getBookings().filter(b=>b.slot===slot).reduce((a,b)=>a+b.people,0);if(used+people>capacityPerSlot){alert("Este horário não tem lugares suficientes. Escolha outro serviço.");return}const booking={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),createdAt:new Date().toISOString(),date:"2026-06-12",slot,people,total:people*pricePerPerson,name:form.get("name"),email:form.get("email"),phone:form.get("phone"),instagram:form.get("instagram")};const bookings=getBookings();bookings.push(booking);setBookings(bookings);qs("#successBox").classList.add("show");qs("#successBox").innerHTML=`<strong>Sua mesa está quase confirmada.</strong><br>${people} pessoas · ${slot} · ${BRL.format(booking.total)}<br><br><a class="btn btn-primary" href="#" data-gateway>Finalizar reserva</a>`;e.currentTarget.reset();setParty(2);qs("input[name='slot']").checked=true;refreshSummary()});
   </script>
 </body>
 </html>
