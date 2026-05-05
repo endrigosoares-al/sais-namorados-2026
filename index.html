@@ -38,8 +38,49 @@
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.word i{transform:none}}
   </style>
   <link rel="preload" as="image" href="assets/frames-campanha/auto-002s.webp" fetchpriority="high">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       RASTREAMENTO — preencher os IDs antes de publicar para mídia paga
+       ═══════════════════════════════════════════════════════════════════
+
+       PASSO 1 → criar container em tagmanager.google.com
+                 substituir GTM-XXXXXXX pelo ID do container
+       PASSO 2 → criar pixel em business.facebook.com/events_manager
+                 substituir 000000000000000 pelo ID do pixel
+       PASSO 3 → dentro do GTM, criar as tags:
+                 · GA4 Configuration  (ID: G-XXXXXXXXXX)
+                 · Google Ads Conversion Tracking (ID: AW-XXXXXXXXX)
+                 · GA4 Event — generate_lead (gatilho: evento JS "generate_lead")
+                 · GA4 Event — initiate_checkout (gatilho: evento JS "initiate_checkout")
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- Google Tag Manager ─────────────────────────────────────────────── -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+  f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5L9JH39X');</script>
+  <!-- /Google Tag Manager -->
+
+  <!-- Meta Pixel (Facebook / Instagram Ads) ──────────────────────────── -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','000000000000000'); /* ← substituir pelo ID do pixel */
+  fbq('track','PageView');
+  fbq('track','ViewContent',{content_name:'Uma Noite em Saint-Tropez',content_category:'Jantar Romântico',value:295,currency:'BRL'});
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=000000000000000&ev=PageView&noscript=1"/></noscript>
+  <!-- /Meta Pixel -->
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5L9JH39X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- /Google Tag Manager (noscript) -->
+
   <a class="skip" href="#reserva">Ir para reserva</a>
   <header class="nav" id="nav">
       <a href="#top" aria-label="Sais"><img src="assets/logo_dourado.png" alt="Sais Beach Living Hotel"></a>
@@ -228,6 +269,40 @@
     qs("#name").addEventListener("input",refreshSummary);
     qsa("input[name='slot']").forEach(el=>el.addEventListener("change",refreshSummary));
     refreshSummary();
+
+    /* ── Eventos de rastreamento ──────────────────────────────────────
+       dataLayer → capturado pelo GTM (configurar tags GA4 + Google Ads lá)
+       fbq        → Meta Pixel direto
+    ─────────────────────────────────────────────────────────────────── */
+    window.dataLayer = window.dataLayer || [];
+    function track(event, params){
+      dataLayer.push(Object.assign({event}, params||{}));
+      if(typeof fbq === 'function') fbq('track', {
+        'initiate_checkout':'InitiateCheckout',
+        'generate_lead':'Lead',
+        'view_menu':'ViewContent'
+      }[event] || 'CustomEvent', Object.assign({currency:'BRL'}, params||{}));
+    }
+
+    /* InitiateCheckout — qualquer botão "Reservar" acima do formulário */
+    qsa('.btn-primary').forEach(btn => {
+      btn.addEventListener('click', () =>
+        track('initiate_checkout', {value: parseInt(qs('#party').value||2,10)*pricePerPerson, num_items: parseInt(qs('#party').value||2,10)})
+      );
+    });
+
+    /* Lead — clique no link final que abre o WhatsApp */
+    qs('#centralLink').addEventListener('click', () => {
+      const people = parseInt(qs('#party').value||2, 10);
+      track('generate_lead', {value: people*pricePerPerson, num_items: people, content_name:'Reserva DN26 Saint-Tropez'});
+    });
+
+    /* ViewContent do menu — quando a seção de menu fica visível */
+    const menuObs = new IntersectionObserver(es => {
+      if(es[0].isIntersecting){ track('view_menu', {content_name:'Menu Degustação'}); menuObs.disconnect(); }
+    }, {threshold:.4});
+    const menuSection = qs('#menu');
+    if(menuSection) menuObs.observe(menuSection);
   </script>
 </body>
 </html>
