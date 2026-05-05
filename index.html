@@ -291,6 +291,44 @@
        dataLayer → capturado pelo GTM (configurar tags GA4 + Google Ads lá)
        fbq        → Meta Pixel direto
     ─────────────────────────────────────────────────────────────────── */
+    /* UTMs capturados na chegada */
+    const _utms = (function(){
+      const p = new URLSearchParams(location.search);
+      return {
+        source:   p.get('utm_source')   || '',
+        medium:   p.get('utm_medium')   || '',
+        campaign: p.get('utm_campaign') || 'namorados_dn26',
+        term:     p.get('utm_term')     || '',
+        content:  p.get('utm_content')  || ''
+      };
+    })();
+
+    function sendRDS(people, slot){
+      const email = qs('#email')?.value.trim();
+      if(!email) return;
+      const body = new URLSearchParams({
+        token_rdstation: '8600b85d04d88f1318a3d23fe793a344',
+        identificador:   'reserva-namorados-2026',
+        email,
+        nome:           qs('#name')?.value.trim()      || '',
+        celular:        qs('#phone')?.value.trim()     || '',
+        cf_instagram:   qs('#instagram')?.value.trim() || '',
+        cf_pessoas:     String(people),
+        cf_horario:     slot,
+        cf_valor_total: String(people * pricePerPerson),
+        traffic_source:   _utms.source,
+        traffic_medium:   _utms.medium,
+        traffic_campaign: _utms.campaign,
+        traffic_term:     _utms.term,
+        traffic_value:    _utms.content
+      });
+      fetch('https://www.rdstation.com.br/api/1.2.1/conversions', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: body.toString()
+      }).catch(()=>{});
+    }
+
     window.dataLayer = window.dataLayer || [];
     function track(event, params){
       dataLayer.push(Object.assign({event}, params||{}));
@@ -311,7 +349,9 @@
     /* Lead — clique no link final que abre o WhatsApp */
     qs('#centralLink').addEventListener('click', () => {
       const people = parseInt(qs('#party').value||2, 10);
+      const slot   = qs("input[name='slot']:checked")?.value || '20h';
       track('generate_lead', {value: people*pricePerPerson, num_items: people, content_name:'Reserva DN26 Saint-Tropez'});
+      sendRDS(people, slot);
     });
 
     /* ViewContent do menu — quando a seção de menu fica visível */
