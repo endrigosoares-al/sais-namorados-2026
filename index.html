@@ -36,6 +36,7 @@
     @media(max-width:640px){.hero{padding-top:7rem}.hero h1{font-size:clamp(2.8rem,15.4vw,4.5rem)}.section-head h2,.big-title{font-size:clamp(3rem,16vw,4.8rem)}.photo-stack{min-height:430px}.photo-stack .a{width:82%;height:300px}.photo-stack .b{width:68%;height:240px}.photo-stack .c{display:none}.sequence-rail,.value-grid,.included,.form-row,.summary,.cross-grid,.ops-grid,.slots{grid-template-columns:1fr}.mosaic{display:block}.mosaic figure{height:260px;margin-bottom:.75rem}.footer .wrap{display:block}.whatsapp{width:56px;height:56px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.word i{transform:none}}
   </style>
+  <link rel="preload" as="image" href="assets/frames-campanha/auto-002s.webp" fetchpriority="high">
 </head>
 <body>
   <a class="skip" href="#reserva">Ir para reserva</a>
@@ -49,7 +50,7 @@
 
   <main id="top">
     <section class="hero">
-      <video class="hero-video" src="assets/hero-namorados-web.mp4" autoplay muted loop playsinline poster="assets/frames-campanha/auto-002s.webp"></video>
+      <video class="hero-video" autoplay muted loop playsinline preload="none" poster="assets/frames-campanha/auto-002s.webp" data-src="assets/hero-namorados-web.mp4"></video>
       <div class="stars"></div>
       <div class="hero-inner">
         <div>
@@ -204,6 +205,8 @@
   </a>
 
   <script>
+    function loadHeroVideo(){const video=qs(".hero-video");if(!video||video.src)return;video.src=video.dataset.src;video.load();video.play().catch(()=>{})}
+    if("requestIdleCallback" in window){requestIdleCallback(loadHeroVideo,{timeout:1600})}else{setTimeout(loadHeroVideo,900)}
     const BRL=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
     const pricePerPerson=295;
     const capacityPerSlot=150;
