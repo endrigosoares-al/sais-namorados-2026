@@ -117,7 +117,7 @@
           <span class="countdown-dot">·</span>
           <div class="countdown-unit"><span class="countdown-num" id="cd-secs">00</span><span class="countdown-lbl">Seg</span></div>
         </div>
-        <p class="countdown-foot">12 de junho · 2026 · às 19h · Maceió, AL</p>
+        <p class="countdown-foot">12 de junho · 2026 · às 20h · Maceió, AL</p>
       </div>
     </section>
 
@@ -323,7 +323,7 @@
 
     /* Contador regressivo → 12 jun 2026 19:00 BRT (UTC-3 = 22:00 UTC) */
     (function(){
-      const target = new Date('2026-06-12T22:00:00Z').getTime();
+      const target = new Date('2026-06-12T23:00:00Z').getTime();
       const cdDays = qs('#cd-days'), cdHours = qs('#cd-hours'), cdMins = qs('#cd-mins'), cdSecs = qs('#cd-secs');
       function pad(n){ return String(n).padStart(2,'0'); }
       function tick(){
