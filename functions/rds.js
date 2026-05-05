@@ -39,6 +39,7 @@ export async function onRequestPost(context) {
       event_family: 'CDP',
       payload: {
         conversion_identifier: 'reserva-namorados-2026',
+        tags:            ['reserva-namorados-2026'],
         name:            d.nome            || '',
         email:           d.email,
         mobile_phone:    d.celular         || '',
