@@ -52,7 +52,7 @@ export async function onRequestPost(context) {
         traffic_term:    d.traffic_term    || ''
       }
     };
-    const r2 = await fetch('https://api.rd.station/platform/conversions', {
+    const r2 = await fetch('https://api.rd.station.com/platform/conversions', {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer 7cef1639a2a28c15830fc1fb73e9813b',
