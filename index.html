@@ -306,7 +306,7 @@
     function sendRDS(people, slot){
       const email = qs('#email')?.value.trim();
       if(!email) return;
-      const body = new URLSearchParams({
+      const fields = {
         token_rdstation: '8600b85d04d88f1318a3d23fe793a344',
         identificador:   'reserva-namorados-2026',
         email,
@@ -319,14 +319,16 @@
         traffic_source:   _utms.source,
         traffic_medium:   _utms.medium,
         traffic_campaign: _utms.campaign,
-        traffic_term:     _utms.term,
-        traffic_value:    _utms.content
+        traffic_term:     _utms.term
+      };
+      const frame = Object.assign(document.createElement('iframe'), {name:'_rds',style:'display:none'});
+      const form  = Object.assign(document.createElement('form'),   {method:'POST', action:'https://www.rdstation.com.br/api/1.2.1/conversions', target:'_rds'});
+      Object.entries(fields).forEach(([k,v])=>{
+        form.appendChild(Object.assign(document.createElement('input'),{type:'hidden',name:k,value:v}));
       });
-      fetch('https://www.rdstation.com.br/api/1.2.1/conversions', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: body.toString()
-      }).catch(()=>{});
+      document.body.append(frame, form);
+      form.submit();
+      setTimeout(()=>{ frame.remove(); form.remove(); }, 3000);
     }
 
     window.dataLayer = window.dataLayer || [];
