@@ -209,11 +209,14 @@ function esc(str) {
 
 async function patchStatus(id, status) {
   try {
-    await fetch('/painel-api?auth=' + SENHA, {
+    var res = await fetch('/painel-api?auth=' + SENHA, {
       method: 'PATCH',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({id: id, status: status})
     });
+    if (res.ok && status === 'pago') {
+      window.open('/voucher?id=' + id, '_blank');
+    }
     loadData();
   } catch(e) {
     console.error('patch error', e);
