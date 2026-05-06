@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Playbook de Vendas — DN2026 | Sais Hotel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C1A15C;--gold-l:#D4BC80;--gold-d:#8A6E3A;
+  --mid:#060C1A;--deep:#0D1E35;--dusk:#1A3050;
+  --white:#FAFAF8;--muted:rgba(250,248,248,.68);--noir:#23201F;
+  --linen:#F4EEE4;--champagne:#F5E8D0;--sand:#D8C9A8;
+  --border:rgba(193,161,92,.28);--border-d:rgba(35,32,31,.14);
+  --grad:linear-gradient(135deg,#B68F43,#F4D894 42%,#C1A15C 70%,#8A6E3A);
+  --shadow:0 24px 64px rgba(6,12,26,.5);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --fd:"EB Garamond",Georgia,serif;
+  --fn:"Gill Sans","Helvetica Neue",Arial,sans-serif;
+  --gutter:clamp(1.2rem,5vw,4rem);
+  --sec:clamp(4rem,9vw,8rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fn);font-weight:300;color:var(--white);background:var(--mid);line-height:1.6}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.9rem var(--gutter);border-bottom:1px solid var(--border);background:rgba(6,12,26,.88);backdrop-filter:blur(18px)}
+.nav-brand{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--gold-l)}
+.nav-links{display:flex;gap:clamp(.8rem,2.5vw,2rem);font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+.nav-links a:hover{color:var(--gold-l)}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* SECTIONS */
+section{padding:var(--sec) var(--gutter)}
+.wrap{width:min(100%,1180px);margin-inline:auto}
+.kicker{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-l);font-weight:300}
+.big{font-family:var(--fd);font-size:clamp(2.8rem,7vw,6rem);font-style:italic;font-weight:400;line-height:.95}
+.h2{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.2rem);font-style:italic;font-weight:400;line-height:1}
+.h3{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.6rem);font-style:italic;font-weight:400}
+.lead{font-size:clamp(1rem,1.6vw,1.22rem);line-height:1.85;color:var(--muted)}
+.gold{color:var(--gold)}
+.light{background:var(--linen);color:var(--noir)}
+.light .kicker{color:var(--gold-d)}
+.light .lead,.light p{color:rgba(35,32,31,.7)}
+.light .h2,.light .h3{color:var(--noir)}
+.sep{display:flex;align-items:center;gap:1rem;margin:2rem 0;color:var(--gold);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase}
+.sep:before,.sep:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold))}
+.light .sep:before,.light .sep:after{background:linear-gradient(90deg,transparent,var(--gold-d))}
+
+/* HERO */
+.hero{min-height:100dvh;display:grid;place-items:center;padding:8rem var(--gutter) 5rem;background:linear-gradient(160deg,var(--mid),var(--deep));position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(193,161,92,.12),transparent 55%)}
+.hero-inner{position:relative;z-index:1;max-width:860px}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem;border:1px solid var(--border);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.hero-tag:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.hero h1{margin:.8rem 0 1.4rem}
+.hero h1 span{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 1.8rem;font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid transparent;transition:.25s var(--ease);cursor:pointer}
+.btn-gold{background:var(--grad);color:var(--noir)}
+.btn-out{border-color:var(--gold);color:var(--gold-l);background:transparent}
+.btn-out:hover{background:rgba(193,161,92,.1)}
+
+/* PRODUTO FACTS */
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-d);border:1px solid var(--border-d);margin-top:3rem}
+.fact{padding:1.6rem 1.4rem;background:var(--linen)}
+.fact-icon{font-size:1.5rem;margin-bottom:.7rem}
+.fact-title{font-family:var(--fd);font-size:1.5rem;font-style:italic;font-weight:400;color:var(--noir);margin-bottom:.4rem}
+.fact-desc{font-size:.85rem;color:rgba(35,32,31,.68);line-height:1.7}
+.fact.alert-fact{background:#FFF8EC;border-left:3px solid var(--gold-d)}
+
+/* NÃO INCLUÍDO */
+.ni-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
+.ni-card{padding:1.4rem;border:1px solid}
+.ni-in{border-color:rgba(76,175,130,.35);background:rgba(76,175,130,.07)}
+.ni-out{border-color:rgba(193,161,92,.35);background:rgba(193,161,92,.07)}
+.ni-label{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;font-weight:700;margin-bottom:.8rem}
+.ni-in .ni-label{color:#4CAF82}
+.ni-out .ni-label{color:var(--gold)}
+.ni-list{list-style:none;display:grid;gap:.5rem}
+.ni-list li{display:flex;gap:.55rem;font-size:.9rem;color:var(--muted)}
+.ni-list li:before{content:"";width:5px;height:5px;border-radius:50%;margin-top:.55rem;flex-shrink:0}
+.ni-in .ni-list li:before{background:#4CAF82}
+.ni-out .ni-list li:before{background:var(--gold)}
+
+/* JORNADA */
+.journey{display:flex;gap:0;overflow-x:auto;padding-bottom:1rem;margin-top:3rem}
+.step{flex:1;min-width:130px;padding:1.2rem 1rem;border:1px solid var(--border);background:rgba(193,161,92,.04);position:relative;text-align:center}
+.step+.step:before{content:"→";position:absolute;left:-14px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:var(--gold);z-index:1;background:var(--deep);padding:0 .2rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--grad);color:var(--noir);font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem}
+.step-title{font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--gold-l);margin-bottom:.3rem}
+.step-desc{font-size:.72rem;color:var(--muted);line-height:1.55}
+.step-tag{display:inline-block;margin-top:.45rem;padding:.15rem .45rem;background:rgba(193,161,92,.14);font-size:.6rem;letter-spacing:.1em;color:var(--gold)}
+
+/* ABORDAGEM */
+.script-box{background:var(--dusk);border-left:3px solid var(--gold);padding:1.6rem 1.8rem;margin-top:1.5rem;position:relative}
+.script-box:before{content:"Script";position:absolute;top:-.6rem;left:1.2rem;background:var(--gold);color:var(--noir);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:.15rem .55rem}
+.script-box p{color:rgba(250,248,248,.85);line-height:1.85;font-size:.95rem}
+.script-box strong{color:var(--gold-l)}
+.script-tip{font-size:.78rem;color:var(--gold);margin-top:.8rem;font-style:italic}
+
+/* OBJEÇÕES */
+.obj-list{display:grid;gap:1rem;margin-top:2rem}
+.obj{border:1px solid var(--border);background:rgba(193,161,92,.04)}
+.obj-q{padding:1rem 1.2rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--white);display:flex;align-items:center;gap:.6rem}
+.obj-q:before{content:"?";width:22px;height:22px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.obj-a{padding:1rem 1.2rem;font-size:.9rem;color:var(--muted);line-height:1.75}
+.obj-a strong{color:var(--gold-l)}
+
+/* FECHAMENTO */
+.close-steps{display:grid;gap:.8rem;margin-top:2rem;counter-reset:cs}
+.cs{background:rgba(193,161,92,.06);border:1px solid var(--border);padding:1.2rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;counter-increment:cs}
+.cs:before{content:counter(cs);min-width:28px;height:28px;border-radius:50%;background:var(--grad);color:var(--noir);font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.cs-body strong{display:block;color:var(--white);margin-bottom:.3rem;font-size:.92rem}
+.cs-body span{font-size:.82rem;color:var(--muted)}
+
+/* ALERTA SAFRAPAY */
+.alert-safra{background:linear-gradient(135deg,rgba(193,161,92,.18),rgba(138,110,58,.12));border:1px solid var(--gold);padding:2rem 2.2rem;margin-top:2rem}
+.alert-safra .alert-icon{font-size:2rem;margin-bottom:.8rem}
+.alert-safra h3{font-family:var(--fd);font-style:italic;font-size:2rem;color:var(--gold-l);margin-bottom:.6rem}
+.alert-safra p{color:var(--muted);line-height:1.75;font-size:.95rem}
+.alert-safra .alert-flow{margin-top:1.2rem;padding:1rem;background:rgba(6,12,26,.4);border-left:2px solid var(--gold);font-size:.85rem;color:var(--gold-l);font-family:monospace;line-height:1.9}
+
+/* REGRAS */
+.rules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-d);border:1px solid var(--border-d);margin-top:2.5rem}
+.rule{padding:1.4rem;background:var(--linen)}
+.rule-title{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-bottom:.5rem}
+.rule-val{font-family:var(--fd);font-size:1.8rem;font-style:italic;color:var(--noir)}
+.rule-desc{font-size:.82rem;color:rgba(35,32,31,.68);margin-top:.2rem}
+
+/* FOOTER */
+footer{padding:2.5rem var(--gutter);background:#030711;border-top:1px solid var(--border);text-align:center;font-size:.72rem;color:var(--muted)}
+
+@media(max-width:800px){
+  .facts-grid,.ni-grid,.rules-grid{grid-template-columns:1fr}
+  .journey{flex-direction:column}
+  .step+.step:before{content:"↓";left:50%;top:-14px;transform:translateX(-50%)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Sais Hotel — Playbook DN2026</span>
+  <div class="nav-links">
+    <a href="#produto">Produto</a>
+    <a href="#jornada">Jornada</a>
+    <a href="#abordagem">Abordagem</a>
+    <a href="#objecoes">Objeções</a>
+    <a href="#fechamento">Fechamento</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Uso interno · Equipe de Vendas</div>
+    <p class="kicker">Playbook de Vendas · Dia dos Namorados 2026</p>
+    <h1 class="big">Uma Noite em<br><span>Saint-Tropez</span></h1>
+    <p class="lead" style="max-width:640px;margin-top:1.2rem">
+      Este guia é o seu mapa para converter cada lead em uma reserva confirmada.
+      Conheça o produto, domine a jornada e feche com confiança.
+      Cada lugar vendido é R$&nbsp;295. Temos 100 lugares. Bora.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-gold" href="#jornada">Ver a jornada</a>
+      <a class="btn btn-out" href="#abordagem">Scripts de abordagem</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTO -->
+<section class="light" id="produto">
+  <div class="wrap">
+    <p class="kicker">Seção 01</p>
+    <h2 class="h2">O que estamos vendendo</h2>
+    <p class="lead" style="margin-top:1rem;max-width:720px">
+      Uma experiência gastronômica exclusiva à beira-mar, no <strong>12 de junho de 2026</strong>.
+      Não é um jantar qualquer — é uma noite desenhada para ser inesquecível.
+    </p>
+
+    <div class="facts-grid">
+      <div class="fact">
+        <div class="fact-icon">📅</div>
+        <div class="fact-title">Data única</div>
+        <div class="fact-desc">12 de junho de 2026 — Dia dos Namorados. Não há segunda chance. O senso de urgência é real.</div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">🕗</div>
+        <div class="fact-title">4 horários</div>
+        <div class="fact-desc">20h · 21h · 22h · 23h. Cada horário tem vagas limitadas. Os serviços encerram às 23h59.</div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">👫</div>
+        <div class="fact-title">Mesas flexíveis</div>
+        <div class="fact-desc">Para 2, 4, 6 ou 8 pessoas. Mesas para grupos exigem reserva prévia. Não fazemos para 1.</div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">🍽️</div>
+        <div class="fact-title">Menu degustação</div>
+        <div class="fact-desc"><strong>NÃO é à la carte.</strong> São 3 tempos fixos: entrada, prato principal e sobremesa. Menu assinado inspirado na Riviera Francesa.</div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">🎷</div>
+        <div class="fact-title">Jazz ao vivo</div>
+        <div class="fact-desc">Grupo de jazz durante toda a noite. <strong>Não cobramos couvert artístico</strong> — já está no valor do jantar.</div>
+      </div>
+      <div class="fact">
+        <div class="fact-icon">💰</div>
+        <div class="fact-title">R$ 295 / pessoa</div>
+        <div class="fact-desc">R$ 590 o casal. Total máximo: R$ 29.500 (100 lugares × R$ 295). Cada reserva conta.</div>
+      </div>
+    </div>
+
+    <div class="sep">O que está incluído e o que não está</div>
+
+    <div class="ni-grid">
+      <div class="ni-card ni-in">
+        <div class="ni-label">✓ Incluído</div>
+        <ul class="ni-list">
+          <li>3 tempos do menu degustação completo</li>
+          <li>Água e água com gás à mesa</li>
+          <li>Música ao vivo (jazz)</li>
+          <li>Couvert artístico (sem cobrança adicional)</li>
+          <li>Serviço de equipe especializada</li>
+          <li>Ambiente à beira-mar</li>
+        </ul>
+      </div>
+      <div class="ni-card ni-out">
+        <div class="ni-label">⚠ Não incluído (cobra à parte)</div>
+        <ul class="ni-list">
+          <li>Bebidas alcoólicas (vinhos, drinques, espumantes)</li>
+          <li>Água mineral com gás premium</li>
+          <li>Itens adicionais fora do menu</li>
+          <li>Decoração especial de mesa (pacote extra)</li>
+          <li>Estacionamento (conforme disponibilidade)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="script-box" style="margin-top:2rem">
+      <p>💡 <strong>Sobre as bebidas:</strong> Nosso sommelier vai sugerir vinhos que harmonizam com cada tempo do menu. O cliente escolhe na hora — não é obrigatório. Mas quando bem apresentado, a maioria aceita e a conta sobe naturalmente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JORNADA -->
+<section id="jornada" style="background:var(--deep)">
+  <div class="wrap">
+    <p class="kicker">Seção 02</p>
+    <h2 class="h2">A jornada do lead</h2>
+    <p class="lead" style="margin-top:1rem;max-width:680px">
+      Cada lead percorre um caminho antes de chegar em você. Entender essa jornada é essencial para abordá-lo no momento certo.
+    </p>
+
+    <div class="journey">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Anúncio</div>
+        <div class="step-desc">Meta Ads ou Google Ads impacta o casal com vídeo ou imagem da campanha</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Landing Page</div>
+        <div class="step-desc">Lead acessa namorados.saishotel.com.br, vê o menu, escolhe horário e pessoas</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Formulário</div>
+        <div class="step-desc">Preenche nome, e-mail, telefone, Instagram (opcional), horário e nº de pessoas</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">WhatsApp</div>
+        <div class="step-desc">Clica no botão — abre WhatsApp com mensagem pré-preenchida para o hotel</div>
+        <div class="step-tag">tag: reserva-namorados-2026</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-title">Asksuite</div>
+        <div class="step-desc">Mensagem chega no live chat com a tag. <strong>Você recebe o lead aqui.</strong></div>
+        <div class="step-tag">+ RD Station</div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-title">Venda</div>
+        <div class="step-desc">Você aborda, confirma dados, tira dúvidas e fecha a reserva</div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-title">Pagamento</div>
+        <div class="step-desc">Gera link Safrapay e envia no WhatsApp. Cliente paga online.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-title">Painel</div>
+        <div class="step-desc">Você entra em /painel e marca a reserva como <strong>Pago</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABORDAGEM -->
+<section id="abordagem" style="background:var(--mid)">
+  <div class="wrap">
+    <p class="kicker">Seção 03</p>
+    <h2 class="h2">Como abordar o lead</h2>
+    <p class="lead" style="margin-top:1rem;max-width:700px">
+      Quando a mensagem chegar no Asksuite com a tag <span class="gold">reserva-namorados-2026</span>, você já sabe que essa pessoa demonstrou interesse real. Não perca tempo — responda em menos de 5 minutos.
+    </p>
+
+    <div class="sep">Primeira mensagem — abertura</div>
+
+    <div class="script-box">
+      <p>Boa noite, <strong>[Nome]</strong>! 🌊</p><br>
+      <p>Que ótima escolha para o Dia dos Namorados. Aqui é o <strong>[Seu nome]</strong>, da equipe do Sais Beach Living Hotel.</p><br>
+      <p>Vi que você tem interesse no nosso jantar degustação <em>Uma Noite em Saint-Tropez</em> — serão apenas 100 lugares, com menu de 3 tempos à beira-mar e jazz ao vivo.</p><br>
+      <p>Você escolheu o horário das <strong>[horário do formulário]</strong> para <strong>[nº de pessoas]</strong>, certo? Posso confirmar essa mesa para vocês agora mesmo. 😊</p>
+      <p class="script-tip">💡 Use o nome e os dados que vieram no formulário. Mostre que você já o conhece — isso quebra barreiras.</p>
+    </div>
+
+    <div class="sep">Se o lead demorou para responder o formulário</div>
+
+    <div class="script-box">
+      <p>Olá, <strong>[Nome]</strong>! Tudo bem?</p><br>
+      <p>Vi que você demonstrou interesse no jantar de Dia dos Namorados do Sais Hotel. Queria te avisar que os lugares estão sendo preenchidos — e o horário das <strong>[horário]</strong> ainda tem vagas disponíveis. 🕯️</p><br>
+      <p>Posso te mandar os detalhes completos e já reservar a mesa de vocês?</p>
+      <p class="script-tip">💡 Crie urgência real — os lugares são limitados e isso é verdade. Use com responsabilidade.</p>
+    </div>
+
+    <div class="sep">Se o lead pede mais informações sobre o menu</div>
+
+    <div class="script-box">
+      <p>Com prazer! O menu é uma degustação de 3 tempos, sem escolha à la carte — é uma sequência pensada como experiência:</p><br>
+      <p>🥂 <strong>Entrada:</strong> Atum com gazpacho, croquetes de pato ou vol-au-vent de frutos do mar</p><br>
+      <p>🍝 <strong>Prato Principal:</strong> Linguine aux fruits de mer, robalo ao bisque ou ravioli de carnes nobres</p><br>
+      <p>🍫 <strong>Sobremesa:</strong> Petit gâteau ou trufa de chocolate belga</p><br>
+      <p>As bebidas (vinhos, espumantes) são à parte — nosso sommelier vai sugerir as harmonizações na hora. Jazz ao vivo a noite toda, sem couvert artístico.</p>
+      <p class="script-tip">💡 Depois de apresentar o menu, retorne ao fechamento: "O que acha? Posso garantir a mesa de vocês?"</p>
+    </div>
+  </div>
+</section>
+
+<!-- OBJEÇÕES -->
+<section class="light" id="objecoes">
+  <div class="wrap">
+    <p class="kicker">Seção 04</p>
+    <h2 class="h2">Objeções e respostas</h2>
+    <p class="lead" style="margin-top:1rem;max-width:680px">
+      Todo lead hesita. Aqui estão as objeções mais comuns e como respondê-las com confiança.
+    </p>
+
+    <div class="obj-list">
+      <div class="obj">
+        <div class="obj-q">Está caro. R$ 590 é muito para um jantar.</div>
+        <div class="obj-a">
+          "Entendo a sua preocupação — mas aqui você está pagando por uma <strong>experiência completa</strong>: menu degustação de 3 tempos criado pelo nosso chef, à beira-mar, com jazz ao vivo incluído. Em qualquer restaurante de mesmo nível em Maceió, o couvert artístico já custaria isso. Aqui está tudo dentro de R$ 295 por pessoa. São momentos assim que ficam para sempre."
+        </div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">As bebidas não estão incluídas?</div>
+        <div class="obj-a">
+          "Sim, as bebidas são cobradas à parte — mas <strong>nosso sommelier vai estar presente</strong> para indicar o vinho ideal para cada tempo do menu. Você escolhe na hora, sem compromisso. Muitos casais optam por uma taça de espumante para começar e um tinto para o principal — fica em torno de R$ 100 a R$ 150 a mais por casal."
+        </div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">Não é à la carte? Mas e se eu não gostar de algum prato?</div>
+        <div class="obj-a">
+          "O menu degustação é justamente o que torna a experiência especial — cada prato foi equilibrado com o próximo. Temos opções para diferentes paladares em cada tempo. <strong>Caso haja alguma restrição alimentar específica</strong>, pode nos informar agora que comunicamos à cozinha com antecedência."
+        </div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">Vou pensar e te respondo depois.</div>
+        <div class="obj-a">
+          "Claro, sem pressão! Só quero te avisar que o horário das <strong>[horário escolhido]</strong> está com poucas vagas — e quando esgota, não abrimos mais. Para garantir sem perder o lugar, você pode fazer a reserva agora e o pagamento só acontece quando eu te mandar o link. <strong>Que tal eu segurar a mesa por hoje?</strong>"
+        </div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">É só para casal? Somos 4 pessoas.</div>
+        <div class="obj-a">
+          "<strong>Ótima notícia — aceitamos mesas para grupos!</strong> Temos disponibilidade para 4, 6 ou 8 pessoas, desde que reservado com antecedência. Fica ainda mais especial comemorar com amigos. Posso reservar uma mesa para vocês 4?"
+        </div>
+      </div>
+      <div class="obj">
+        <div class="obj-q">Como funciona o pagamento?</div>
+        <div class="obj-a">
+          "Muito simples: confirmo a reserva agora, gero um link de pagamento seguro pelo <strong>Safrapay</strong> e te mando aqui no WhatsApp. Você paga pelo cartão de crédito ou débito, recebe a confirmação por e-mail e a reserva está garantida. Todo o processo leva menos de 5 minutos."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FECHAMENTO -->
+<section id="fechamento" style="background:var(--deep)">
+  <div class="wrap">
+    <p class="kicker">Seção 05</p>
+    <h2 class="h2">Como fechar e confirmar</h2>
+    <p class="lead" style="margin-top:1rem;max-width:680px">
+      Quando o lead sinalizar interesse, siga este passo a passo sem desviar.
+    </p>
+
+    <div class="close-steps">
+      <div class="cs">
+        <div class="cs-body">
+          <strong>Confirme os dados da reserva</strong>
+          <span>Nome completo, e-mail, telefone, horário e número de pessoas. Repita em voz alta no chat: "Então confirmando: mesa para [X] pessoas às [horário], no dia 12 de junho, correto?"</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div class="cs-body">
+          <strong>Pergunte sobre restrições alimentares</strong>
+          <span>"Algum de vocês tem alergia ou restrição alimentar? Vegetariano, intolerância ao glúten?" — Isso demonstra cuidado e agiliza o serviço.</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div class="cs-body">
+          <strong>Gere o link de pagamento no Safrapay</strong>
+          <span>Acesse o Safrapay, crie o link com o valor correto (R$ 295 × nº de pessoas) e envie no WhatsApp. Informe o prazo: "Você tem 24 horas para concluir o pagamento e garantir a reserva."</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div class="cs-body">
+          <strong>Confirme o recebimento do pagamento</strong>
+          <span>Quando o Safrapay notificar, envie uma mensagem de confirmação calorosa: "Perfeito, [Nome]! Reserva confirmada. Até dia 12 — vai ser uma noite incrível! 🥂"</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div class="cs-body">
+          <strong>Marque como pago no painel</strong>
+          <span>Acesse namorados.saishotel.com.br/painel, encontre a reserva e clique em "✓ Marcar pago". Isso atualiza o dashboard operacional em tempo real.</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div class="cs-body">
+          <strong>Cross-sell: ofereça decoração de mesa</strong>
+          <span>"Aproveitando — temos pacotes de decoração especial da mesa para datas como essa. Posso te enviar as opções?" — Receita adicional com baixo esforço.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERTA SAFRAPAY -->
+<section style="background:var(--mid)">
+  <div class="wrap">
+    <p class="kicker">Seção 06</p>
+    <h2 class="h2">Gateway de pagamento</h2>
+
+    <div class="alert-safra">
+      <div class="alert-icon">⚠️</div>
+      <h3>Botão Safrapay — Em desenvolvimento</h3>
+      <p>
+        O botão de pagamento direto na landing page está sendo desenvolvido para integração com o <strong>Safrapay</strong>.
+        Enquanto não está disponível, <strong>todo pagamento é processado manualmente pelo vendedor</strong>:
+        gere o link no painel do Safrapay e envie diretamente no WhatsApp do cliente.
+      </p>
+      <div class="alert-flow">
+        Vendedor confirma reserva no Asksuite<br>
+        → Acessa o painel do Safrapay<br>
+        → Gera link com o valor correto (R$ 295 × pessoas)<br>
+        → Envia o link no WhatsApp<br>
+        → Cliente paga → Notificação Safrapay<br>
+        → Vendedor marca como "Pago" em /painel
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGRAS RÁPIDAS -->
+<section class="light">
+  <div class="wrap">
+    <p class="kicker">Referência rápida</p>
+    <h2 class="h2">Regras e limites</h2>
+
+    <div class="rules-grid">
+      <div class="rule">
+        <div class="rule-title">Total de lugares</div>
+        <div class="rule-val">100 pax</div>
+        <div class="rule-desc">Distribuídos entre os 4 horários. Quando lotou, lotou.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-title">Valor por pessoa</div>
+        <div class="rule-val">R$ 295</div>
+        <div class="rule-desc">Fixo. Não há desconto, não há meia-entrada.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-title">Tamanho mínimo de mesa</div>
+        <div class="rule-val">2 pessoas</div>
+        <div class="rule-desc">É uma experiência a dois (ou mais). Não vendemos para 1.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-title">Tamanho máximo de mesa</div>
+        <div class="rule-val">8 pessoas</div>
+        <div class="rule-desc">Grupos acima de 8 entram em contato diretamente.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-title">Encerramento dos serviços</div>
+        <div class="rule-val">23h59</div>
+        <div class="rule-desc">Todos os horários encerram até meia-noite.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-title">Prazo para pagamento</div>
+        <div class="rule-val">24 horas</div>
+        <div class="rule-desc">Após envio do link Safrapay. Sem pagamento = reserva liberada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Sais Beach Living Hotel · Playbook DN2026 · Uso interno exclusivo</p>
+  <p style="margin-top:.4rem">Dúvidas? Fale com a liderança de vendas.</p>
+</footer>
+
+</body>
+</html>

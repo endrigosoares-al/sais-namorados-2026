@@ -4,6 +4,33 @@ export async function onRequestPost(context) {
 
   const log = {};
 
+  // Grava reserva no KV para o painel operacional
+  try {
+    const kv = context.env.RESERVAS;
+    if (kv) {
+      const lista = (await kv.get('reservas', 'json')) || [];
+      lista.push({
+        id:           crypto.randomUUID(),
+        nome:         d.nome            || '',
+        email:        d.email,
+        celular:      d.celular         || '',
+        instagram:    d.cf_instagram    || '',
+        pessoas:      parseInt(d.cf_pessoas)    || 2,
+        horario:      d.cf_horario      || '',
+        valor:        parseInt(d.cf_valor_total) || 0,
+        status:       'reservado',
+        timestamp:    new Date().toISOString(),
+        utm_source:   d.traffic_source   || '',
+        utm_medium:   d.traffic_medium   || '',
+        utm_campaign: d.traffic_campaign || '',
+      });
+      await kv.put('reservas', JSON.stringify(lista));
+      log.kv = 'saved';
+    }
+  } catch (e) {
+    log.kvError = e.message;
+  }
+
   // 1. Tenta API legada (token público)
   try {
     const body = new URLSearchParams({
