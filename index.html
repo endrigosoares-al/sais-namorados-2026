@@ -36,9 +36,6 @@
     @media(max-width:980px){.nav-links,.nav-actions .btn-secondary{display:none}.hamb{display:block}.hero-inner,.story-grid,.menu-layout,.reserve-grid,.cross-grid,.section-head{grid-template-columns:1fr}.hero{place-items:end start}.photo-stack{min-height:540px}.sequence-rail,.value-grid,.included{grid-template-columns:1fr 1fr}.mosaic{grid-template-columns:1fr 1fr}.mosaic figure:first-child,.mosaic figure:nth-child(4){grid-column:span 2}.ops-grid{grid-template-columns:1fr 1fr}.reserve{background-attachment:scroll}}
     @media(max-width:640px){.hero{padding-top:7rem}.hero h1{font-size:clamp(2.8rem,15.4vw,4.5rem)}.section-head h2,.big-title{font-size:clamp(3rem,16vw,4.8rem)}.photo-stack{min-height:430px}.photo-stack .a{width:82%;height:300px}.photo-stack .b{width:68%;height:240px}.photo-stack .c{display:none}.sequence-rail,.value-grid,.included,.form-row,.summary,.cross-grid,.ops-grid,.slots{grid-template-columns:1fr}.mosaic{display:block}.mosaic figure{height:260px;margin-bottom:.75rem}.footer .wrap{display:block}.whatsapp{width:56px;height:56px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.word i{transform:none}}
-    [data-parallax]{will-change:transform}
-    #experiencia,#menu,#ambiente,#reserva{content-visibility:auto;contain-intrinsic-size:auto 900px}
-    .sequence{content-visibility:auto;contain-intrinsic-size:auto 500px}
     .countdown{background:linear-gradient(180deg,var(--midnight),var(--deep));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:clamp(2.5rem,5vw,4rem) var(--gutter);text-align:center}.countdown-inner{display:flex;flex-direction:column;align-items:center;gap:1.25rem}.countdown-eyebrow{font-size:.68rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold-light);margin:0}.countdown-row{display:flex;align-items:flex-end;gap:clamp(1rem,3vw,3rem)}.countdown-unit{display:flex;flex-direction:column;align-items:center;gap:.4rem}.countdown-num{font-family:var(--display);font-size:clamp(3.4rem,7.5vw,6rem);font-weight:400;line-height:1;color:var(--gold-light);min-width:1.8ch;display:block}.countdown-lbl{font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(250,248,248,.5)}.countdown-dot{font-family:var(--display);font-size:clamp(2.5rem,5vw,4.5rem);color:rgba(193,161,92,.35);margin-bottom:.35rem;line-height:1;user-select:none}.countdown-foot{font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(250,248,248,.38);margin:0}
   </style>
   <link rel="preload" as="image" href="assets/frames-campanha/auto-002s.webp" fetchpriority="high">
@@ -92,7 +89,7 @@
 
   <a class="skip" href="#reserva">Ir para reserva</a>
   <header class="nav" id="nav">
-      <a href="#top" aria-label="Sais"><img src="assets/logo_dourado.png" alt="Sais Beach Living Hotel" width="3000" height="1049"></a>
+      <a href="#top" aria-label="Sais"><img src="assets/logo_dourado.png" alt="Sais Beach Living Hotel"></a>
       <nav class="nav-links" aria-label="Navegação principal">
       <a href="#experiencia">Experiência</a><a href="#menu">Menu</a><a href="#reserva">Reservas</a>
     </nav>
@@ -282,12 +279,10 @@
     const storeKey="sais_sttropez_reservas";
     const getBookings=()=>JSON.parse(localStorage.getItem(storeKey)||"[]");
     const setBookings=data=>localStorage.setItem(storeKey,JSON.stringify(data));
-    const nav=qs("#nav");
-    const parallax=qsa("[data-parallax]");
-    let _raf=false;
-    addEventListener("scroll",()=>{if(!_raf){_raf=true;requestAnimationFrame(()=>{nav.classList.toggle("scrolled",scrollY>40);parallax.forEach(el=>{el.style.transform=`translateY(${scrollY*(parseFloat(el.dataset.parallax)||0)}px)`});_raf=false})}},{passive:true});
+    const nav=qs("#nav");addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>40),{passive:true});
     qsa("[data-split]").forEach(el=>{const words=el.childNodes.length>1?el.innerHTML:el.textContent;el.innerHTML=words.split(/(\s+)/).map((w,i)=>w.trim()?`<span><i style="--d:${i*70}ms">${w}</i></span>`:w).join("")});
     const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add("in")}),{threshold:.16});qsa(".reveal").forEach(el=>io.observe(el));
+    const parallax=qsa("[data-parallax]");addEventListener("scroll",()=>{parallax.forEach(el=>{const speed=parseFloat(el.dataset.parallax||0);el.style.transform=`translateY(${scrollY*speed}px)`})},{passive:true});
     const slotRoot=qs("#slots");slotRoot.innerHTML=slots.map((s,i)=>`<label class="slot"><input type="radio" name="slot" value="${s}" ${i===0?"checked":""}><span>${s}</span></label>`).join("");
     function setParty(value){const next=Math.max(2,Math.min(12,value));qs("#party").value=next;qs("#partyOutput").textContent=`${next} ${next===1?"pessoa":"pessoas"}`;refreshSummary()}
     function refreshSummary(){const people=parseInt(qs("#party").value,10);const slot=qs("input[name='slot']:checked")?.value||"20h";const name=qs("#name")?.value.trim();qs("#sumPeople").textContent=people;qs("#sumTotal").textContent=BRL.format(people*pricePerPerson);const intro=name?`Olá, sou ${name}. `:"Olá. ";const msg=`${intro}Gostaria de reservar ${people} lugares para o Dia dos Namorados do Sais, no horário das ${slot}. Tag: LP_NAMORADOS_SAIS_2026.`;qs("#centralLink").href=`https://wa.me/558235121004?text=${encodeURIComponent(msg)}`}
