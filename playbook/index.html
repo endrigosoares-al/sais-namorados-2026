@@ -10,136 +10,200 @@
 :root{
   --gold:#C1A15C;--gold-l:#D4BC80;--gold-d:#8A6E3A;
   --mid:#060C1A;--deep:#0D1E35;--dusk:#1A3050;
-  --white:#FAFAF8;--muted:rgba(250,248,248,.68);--noir:#23201F;
-  --linen:#F4EEE4;--champagne:#F5E8D0;--sand:#D8C9A8;
-  --border:rgba(193,161,92,.28);--border-d:rgba(35,32,31,.14);
+  --white:#FAFAF8;--muted:rgba(250,248,248,.68);
+  --noir:#23201F;--noir-mid:rgba(35,32,31,.72);--noir-lt:rgba(35,32,31,.52);
+  --linen:#F4EEE4;--champagne:#F5E8D0;
+  --border:rgba(193,161,92,.28);--border-d:rgba(35,32,31,.15);
   --grad:linear-gradient(135deg,#B68F43,#F4D894 42%,#C1A15C 70%,#8A6E3A);
-  --shadow:0 24px 64px rgba(6,12,26,.5);
+  --ok-bg:rgba(46,125,82,.16);--ok:#4CAF82;
   --ease:cubic-bezier(.16,1,.3,1);
   --fd:"EB Garamond",Georgia,serif;
   --fn:"Gill Sans","Helvetica Neue",Arial,sans-serif;
-  --gutter:clamp(1.2rem,5vw,4rem);
-  --sec:clamp(4rem,9vw,8rem);
+  --g:clamp(1.2rem,5vw,4rem);
+  --s:clamp(3.5rem,8vw,7rem);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--fn);font-weight:300;color:var(--white);background:var(--mid);line-height:1.6}
-img{display:block;max-width:100%}
+body{font-family:var(--fn);font-weight:300;color:var(--white);background:var(--mid);line-height:1.62}
 a{color:inherit;text-decoration:none}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.9rem var(--gutter);border-bottom:1px solid var(--border);background:rgba(6,12,26,.88);backdrop-filter:blur(18px)}
-.nav-brand{font-family:var(--fd);font-style:italic;font-size:1.05rem;color:var(--gold-l)}
-.nav-links{display:flex;gap:clamp(.8rem,2.5vw,2rem);font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:.85rem var(--g);border-bottom:1px solid var(--border);background:rgba(6,12,26,.9);backdrop-filter:blur(16px)}
+.nav-brand{font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--gold-l)}
+.nav-links{display:flex;gap:clamp(.7rem,2vw,1.8rem);font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
 .nav-links a:hover{color:var(--gold-l)}
 @media(max-width:640px){.nav-links{display:none}}
 
-/* SECTIONS */
-section{padding:var(--sec) var(--gutter)}
-.wrap{width:min(100%,1180px);margin-inline:auto}
-.kicker{font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-l);font-weight:300}
-.big{font-family:var(--fd);font-size:clamp(2.8rem,7vw,6rem);font-style:italic;font-weight:400;line-height:.95}
-.h2{font-family:var(--fd);font-size:clamp(2.2rem,5vw,4.2rem);font-style:italic;font-weight:400;line-height:1}
-.h3{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.6rem);font-style:italic;font-weight:400}
-.lead{font-size:clamp(1rem,1.6vw,1.22rem);line-height:1.85;color:var(--muted)}
-.gold{color:var(--gold)}
+/* HELPERS */
+section{padding:var(--s) var(--g)}
+.wrap{width:min(100%,1160px);margin-inline:auto}
+.kicker{font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--gold-l);font-weight:300}
+.kicker-d{color:var(--gold-d)}
+.big{font-family:var(--fd);font-size:clamp(2.8rem,7vw,5.8rem);font-style:italic;font-weight:400;line-height:.94}
+.h2{font-family:var(--fd);font-size:clamp(2rem,4.5vw,4rem);font-style:italic;font-weight:400;line-height:1}
+.h3{font-family:var(--fd);font-size:clamp(1.5rem,2.8vw,2.4rem);font-style:italic;font-weight:400}
+.lead-d{font-size:clamp(.95rem,1.55vw,1.18rem);line-height:1.85;color:var(--muted)}
+.lead-l{font-size:clamp(.95rem,1.55vw,1.18rem);line-height:1.85;color:var(--noir-mid)}
 .light{background:var(--linen);color:var(--noir)}
-.light .kicker{color:var(--gold-d)}
-.light .lead,.light p{color:rgba(35,32,31,.7)}
-.light .h2,.light .h3{color:var(--noir)}
-.sep{display:flex;align-items:center;gap:1rem;margin:2rem 0;color:var(--gold);font-size:.65rem;letter-spacing:.3em;text-transform:uppercase}
-.sep:before,.sep:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold))}
-.light .sep:before,.light .sep:after{background:linear-gradient(90deg,transparent,var(--gold-d))}
+.dark{background:var(--deep)}
+.gold{color:var(--gold)}
+.sep{display:flex;align-items:center;gap:1rem;margin:2.2rem 0;font-size:.6rem;letter-spacing:.28em;text-transform:uppercase}
+.sep-d{color:var(--gold)}
+.sep-d:before,.sep-d:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold))}
+.sep-l{color:var(--gold-d)}
+.sep-l:before,.sep-l:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold-d))}
 
-/* HERO */
-.hero{min-height:100dvh;display:grid;place-items:center;padding:8rem var(--gutter) 5rem;background:linear-gradient(160deg,var(--mid),var(--deep));position:relative;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 60% 30%,rgba(193,161,92,.12),transparent 55%)}
+/* ── HERO ── */
+.hero{min-height:100dvh;display:grid;place-items:center;padding:8rem var(--g) 5rem;background:linear-gradient(160deg,var(--mid),var(--deep));position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 65% 25%,rgba(193,161,92,.13),transparent 55%)}
 .hero-inner{position:relative;z-index:1;max-width:860px}
-.hero-tag{display:inline-flex;align-items:center;gap:.6rem;padding:.4rem 1rem;border:1px solid var(--border);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;padding:.38rem 1rem;border:1px solid var(--border);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem}
 .hero-tag:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.3}}
-.hero h1{margin:.8rem 0 1.4rem}
+.hero h1{margin:.7rem 0 1.2rem}
 .hero h1 span{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 1.8rem;font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid transparent;transition:.25s var(--ease);cursor:pointer}
+.hero-ctas{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:1.8rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:50px;padding:0 1.7rem;font-weight:700;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid transparent;transition:.22s var(--ease);cursor:pointer}
 .btn-gold{background:var(--grad);color:var(--noir)}
 .btn-out{border-color:var(--gold);color:var(--gold-l);background:transparent}
 .btn-out:hover{background:rgba(193,161,92,.1)}
 
-/* PRODUTO FACTS */
-.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-d);border:1px solid var(--border-d);margin-top:3rem}
-.fact{padding:1.6rem 1.4rem;background:var(--linen)}
-.fact-icon{font-size:1.5rem;margin-bottom:.7rem}
-.fact-title{font-family:var(--fd);font-size:1.5rem;font-style:italic;font-weight:400;color:var(--noir);margin-bottom:.4rem}
-.fact-desc{font-size:.85rem;color:rgba(35,32,31,.68);line-height:1.7}
-.fact.alert-fact{background:#FFF8EC;border-left:3px solid var(--gold-d)}
+/* COUNTDOWN */
+.cd-widget{margin-top:2.8rem;padding:1.6rem 2rem;border:1px solid var(--border);background:rgba(6,12,26,.55);backdrop-filter:blur(12px);display:inline-block}
+.cd-row{display:flex;align-items:flex-end;gap:clamp(.8rem,2.5vw,2.5rem)}
+.cd-unit{text-align:center}
+.cd-num{font-family:var(--fd);font-size:clamp(2.4rem,6vw,4.8rem);font-weight:400;line-height:1;color:var(--gold-l);display:block;min-width:1.8ch}
+.cd-lbl{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(250,248,248,.48);margin-top:.2rem}
+.cd-dot{font-family:var(--fd);font-size:clamp(2rem,4vw,3.8rem);color:rgba(193,161,92,.4);line-height:1;margin-bottom:.35rem}
+.cd-meta{margin-top:1.1rem;font-size:.72rem;color:var(--muted);border-top:1px solid var(--border);padding-top:.9rem}
+.cd-meta strong{color:var(--gold-l)}
 
-/* NÃO INCLUÍDO */
+/* ── PRODUTO ── */
+.facts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-d);border:1px solid var(--border-d);margin-top:2.8rem}
+.fact{padding:1.5rem 1.3rem;background:var(--linen)}
+.fact-icon{font-size:1.4rem;margin-bottom:.65rem}
+.fact-title{font-family:var(--fd);font-size:1.45rem;font-style:italic;font-weight:400;color:var(--noir);margin-bottom:.35rem}
+.fact-desc{font-size:.84rem;color:var(--noir-mid);line-height:1.7}
+.fact-desc strong{color:var(--noir)}
+.alert-box{margin-top:2rem;padding:1.4rem 1.6rem;background:#FFF8EC;border-left:3px solid var(--gold-d)}
+.alert-box p{font-size:.9rem;color:var(--noir-mid);line-height:1.75}
+.alert-box strong{color:var(--noir)}
+
+/* INCLUÍDO */
 .ni-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
 .ni-card{padding:1.4rem;border:1px solid}
 .ni-in{border-color:rgba(76,175,130,.35);background:rgba(76,175,130,.07)}
 .ni-out{border-color:rgba(193,161,92,.35);background:rgba(193,161,92,.07)}
-.ni-label{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;font-weight:700;margin-bottom:.8rem}
+.ni-label{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;margin-bottom:.8rem}
 .ni-in .ni-label{color:#4CAF82}
 .ni-out .ni-label{color:var(--gold)}
-.ni-list{list-style:none;display:grid;gap:.5rem}
-.ni-list li{display:flex;gap:.55rem;font-size:.9rem;color:var(--muted)}
-.ni-list li:before{content:"";width:5px;height:5px;border-radius:50%;margin-top:.55rem;flex-shrink:0}
+.ni-list{list-style:none;display:grid;gap:.48rem}
+.ni-list li{display:flex;gap:.5rem;font-size:.88rem}
+.ni-in .ni-list li{color:var(--noir-mid)}
+.ni-out .ni-list li{color:var(--noir-mid)}
+.ni-list li:before{content:"";width:5px;height:5px;border-radius:50%;margin-top:.58rem;flex-shrink:0}
 .ni-in .ni-list li:before{background:#4CAF82}
 .ni-out .ni-list li:before{background:var(--gold)}
 
 /* JORNADA */
-.journey{display:flex;gap:0;overflow-x:auto;padding-bottom:1rem;margin-top:3rem}
-.step{flex:1;min-width:130px;padding:1.2rem 1rem;border:1px solid var(--border);background:rgba(193,161,92,.04);position:relative;text-align:center}
-.step+.step:before{content:"→";position:absolute;left:-14px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:var(--gold);z-index:1;background:var(--deep);padding:0 .2rem}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--grad);color:var(--noir);font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto .6rem}
-.step-title{font-family:var(--fd);font-style:italic;font-size:1rem;color:var(--gold-l);margin-bottom:.3rem}
-.step-desc{font-size:.72rem;color:var(--muted);line-height:1.55}
-.step-tag{display:inline-block;margin-top:.45rem;padding:.15rem .45rem;background:rgba(193,161,92,.14);font-size:.6rem;letter-spacing:.1em;color:var(--gold)}
+.journey{display:flex;overflow-x:auto;padding-bottom:1rem;margin-top:2.8rem;gap:0}
+.step{flex:1;min-width:120px;padding:1.2rem .9rem;border:1px solid var(--border);background:rgba(193,161,92,.04);position:relative;text-align:center}
+.step+.step:before{content:"→";position:absolute;left:-14px;top:46%;color:var(--gold);font-size:1.1rem;background:var(--deep);padding:0 .2rem;z-index:1}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--grad);color:var(--noir);font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:0 auto .55rem}
+.step-title{font-family:var(--fd);font-style:italic;font-size:.98rem;color:var(--gold-l);margin-bottom:.28rem}
+.step-desc{font-size:.7rem;color:var(--muted);line-height:1.5}
+.step-tag{display:inline-block;margin-top:.4rem;padding:.14rem .42rem;background:rgba(193,161,92,.14);font-size:.58rem;letter-spacing:.1em;color:var(--gold)}
 
-/* ABORDAGEM */
-.script-box{background:var(--dusk);border-left:3px solid var(--gold);padding:1.6rem 1.8rem;margin-top:1.5rem;position:relative}
-.script-box:before{content:"Script";position:absolute;top:-.6rem;left:1.2rem;background:var(--gold);color:var(--noir);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;padding:.15rem .55rem}
-.script-box p{color:rgba(250,248,248,.85);line-height:1.85;font-size:.95rem}
+/* SCRIPT BOX */
+.script-box{background:var(--dusk);border-left:3px solid var(--gold);padding:1.5rem 1.7rem;margin-top:1.5rem;position:relative}
+.script-box:before{content:"Script";position:absolute;top:-.58rem;left:1.1rem;background:var(--gold);color:var(--noir);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;padding:.13rem .5rem}
+.script-box p{color:rgba(250,248,248,.86);line-height:1.88;font-size:.93rem}
 .script-box strong{color:var(--gold-l)}
-.script-tip{font-size:.78rem;color:var(--gold);margin-top:.8rem;font-style:italic}
+.tip{font-size:.76rem;color:var(--gold);margin-top:.75rem;font-style:italic}
+
+/* CROSS SELL / L'OCCITANE */
+.locc-hero{background:linear-gradient(135deg,rgba(193,161,92,.15),rgba(138,110,58,.08));border:1px solid var(--border);padding:2rem 2.2rem;margin-top:2.5rem}
+.locc-hero h3{font-family:var(--fd);font-style:italic;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--gold-l);margin-bottom:.7rem}
+.locc-hero p{color:var(--muted);line-height:1.82;font-size:.93rem}
+.locc-items{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;margin-top:1.4rem}
+.locc-item{display:flex;gap:.55rem;align-items:flex-start;font-size:.85rem;color:var(--muted)}
+.locc-item:before{content:"✦";color:var(--gold);flex-shrink:0;margin-top:.05rem;font-size:.7rem}
+.locc-price{display:inline-flex;align-items:center;gap:.6rem;margin-top:1.2rem;padding:.6rem 1.1rem;background:rgba(193,161,92,.14);border:1px solid var(--border)}
+.locc-price strong{font-family:var(--fd);font-size:1.5rem;color:var(--gold-l)}
+.locc-price span{font-size:.72rem;color:var(--muted);letter-spacing:.12em}
+
+/* PACOTES */
+.pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.pkg{border:1px solid var(--border);background:rgba(193,161,92,.04);overflow:hidden;position:relative}
+.pkg.featured{border-color:var(--gold);background:rgba(193,161,92,.09)}
+.pkg-badge{position:absolute;top:0;right:0;background:var(--grad);color:var(--noir);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:.28rem .65rem}
+.pkg-type{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);padding:1.3rem 1.3rem .4rem}
+.pkg-room{font-family:var(--fd);font-style:italic;font-size:1.7rem;color:var(--white);padding:0 1.3rem .6rem;line-height:1}
+.pkg-price{font-family:var(--fd);font-size:clamp(2.2rem,4vw,3rem);color:var(--gold-l);padding:0 1.3rem .3rem;line-height:1}
+.pkg-price small{font-size:.75rem;font-family:var(--fn);letter-spacing:.14em;color:var(--muted)}
+.pkg-parcel{font-size:.76rem;color:var(--muted);padding:0 1.3rem .8rem}
+.pkg-divider{height:1px;background:var(--border);margin:0 1.3rem}
+.pkg-items{padding:.9rem 1.3rem 1.3rem;list-style:none;display:grid;gap:.4rem}
+.pkg-items li{font-size:.82rem;color:var(--muted);display:flex;gap:.5rem}
+.pkg-items li:before{content:"✓";color:var(--gold);flex-shrink:0}
+
+/* CUPOM */
+.cupom-box{margin-top:2rem;padding:1.6rem 1.8rem;background:linear-gradient(135deg,rgba(193,161,92,.12),rgba(6,12,26,.4));border:1px dashed var(--gold)}
+.cupom-box h3{font-family:var(--fd);font-style:italic;font-size:1.8rem;color:var(--gold-l);margin-bottom:.6rem}
+.cupom-code{display:inline-block;padding:.55rem 1.3rem;background:var(--gold);color:var(--noir);font-family:monospace;font-size:1.2rem;font-weight:700;letter-spacing:.18em;margin:.4rem 0}
+.cupom-box p{font-size:.9rem;color:var(--muted);line-height:1.75;margin-top:.6rem}
+.rooms-list{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.room-tag{padding:.28rem .7rem;border:1px solid var(--border);font-size:.68rem;letter-spacing:.12em;color:var(--gold-l)}
+
+/* DESCONTOS */
+.disc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.disc{padding:1.4rem;border:1px solid var(--border);background:rgba(193,161,92,.04)}
+.disc-icon{font-size:1.6rem;margin-bottom:.6rem}
+.disc-title{font-family:var(--fd);font-style:italic;font-size:1.5rem;color:var(--gold-l);margin-bottom:.35rem}
+.disc-desc{font-size:.84rem;color:var(--muted);line-height:1.7}
 
 /* OBJEÇÕES */
-.obj-list{display:grid;gap:1rem;margin-top:2rem}
-.obj{border:1px solid var(--border);background:rgba(193,161,92,.04)}
-.obj-q{padding:1rem 1.2rem;border-bottom:1px solid var(--border);font-weight:600;color:var(--white);display:flex;align-items:center;gap:.6rem}
-.obj-q:before{content:"?";width:22px;height:22px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font-size:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.obj-a{padding:1rem 1.2rem;font-size:.9rem;color:var(--muted);line-height:1.75}
-.obj-a strong{color:var(--gold-l)}
+.obj-list{display:grid;gap:.9rem;margin-top:2rem}
+.obj{border:1px solid var(--border-d);background:var(--linen)}
+.obj-q{padding:.9rem 1.2rem;border-bottom:1px solid var(--border-d);font-weight:600;color:var(--noir);display:flex;align-items:center;gap:.6rem;font-size:.92rem}
+.obj-q:before{content:"?";width:21px;height:21px;border-radius:50%;border:1px solid var(--gold-d);color:var(--gold-d);font-size:.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.obj-a{padding:1rem 1.2rem;font-size:.88rem;color:var(--noir-mid);line-height:1.78}
+.obj-a strong{color:var(--noir)}
 
 /* FECHAMENTO */
-.close-steps{display:grid;gap:.8rem;margin-top:2rem;counter-reset:cs}
-.cs{background:rgba(193,161,92,.06);border:1px solid var(--border);padding:1.2rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;counter-increment:cs}
-.cs:before{content:counter(cs);min-width:28px;height:28px;border-radius:50%;background:var(--grad);color:var(--noir);font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
-.cs-body strong{display:block;color:var(--white);margin-bottom:.3rem;font-size:.92rem}
-.cs-body span{font-size:.82rem;color:var(--muted)}
+.cs-list{display:grid;gap:.75rem;margin-top:2rem;counter-reset:cs}
+.cs{background:rgba(193,161,92,.05);border:1px solid var(--border);padding:1.2rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;counter-increment:cs}
+.cs:before{content:counter(cs);min-width:26px;height:26px;border-radius:50%;background:var(--grad);color:var(--noir);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.cs strong{display:block;color:var(--white);margin-bottom:.28rem;font-size:.9rem}
+.cs span{font-size:.82rem;color:var(--muted)}
+.cs.highlight{border-color:var(--gold);background:rgba(193,161,92,.1)}
+.cs.highlight strong{color:var(--gold-l)}
 
-/* ALERTA SAFRAPAY */
-.alert-safra{background:linear-gradient(135deg,rgba(193,161,92,.18),rgba(138,110,58,.12));border:1px solid var(--gold);padding:2rem 2.2rem;margin-top:2rem}
-.alert-safra .alert-icon{font-size:2rem;margin-bottom:.8rem}
-.alert-safra h3{font-family:var(--fd);font-style:italic;font-size:2rem;color:var(--gold-l);margin-bottom:.6rem}
-.alert-safra p{color:var(--muted);line-height:1.75;font-size:.95rem}
-.alert-safra .alert-flow{margin-top:1.2rem;padding:1rem;background:rgba(6,12,26,.4);border-left:2px solid var(--gold);font-size:.85rem;color:var(--gold-l);font-family:monospace;line-height:1.9}
+/* ALERTA */
+.alert-safra{background:linear-gradient(135deg,rgba(193,161,92,.16),rgba(138,110,58,.1));border:1px solid var(--gold);padding:1.8rem 2rem;margin-top:2rem}
+.alert-safra .icon{font-size:1.8rem;margin-bottom:.7rem}
+.alert-safra h3{font-family:var(--fd);font-style:italic;font-size:1.9rem;color:var(--gold-l);margin-bottom:.55rem}
+.alert-safra p{color:var(--muted);font-size:.9rem;line-height:1.75}
+.alert-flow{margin-top:1rem;padding:.9rem 1.1rem;background:rgba(6,12,26,.4);border-left:2px solid var(--gold);font-size:.82rem;color:var(--gold-l);font-family:monospace;line-height:2}
 
 /* REGRAS */
-.rules-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-d);border:1px solid var(--border-d);margin-top:2.5rem}
-.rule{padding:1.4rem;background:var(--linen)}
-.rule-title{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-bottom:.5rem}
-.rule-val{font-family:var(--fd);font-size:1.8rem;font-style:italic;color:var(--noir)}
-.rule-desc{font-size:.82rem;color:rgba(35,32,31,.68);margin-top:.2rem}
+.rules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-d);border:1px solid var(--border-d);margin-top:2.5rem}
+.rule{padding:1.3rem;background:var(--linen)}
+.rule-lbl{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-d);font-weight:700;margin-bottom:.4rem}
+.rule-val{font-family:var(--fd);font-size:1.7rem;font-style:italic;color:var(--noir)}
+.rule-desc{font-size:.8rem;color:var(--noir-lt);margin-top:.18rem}
 
-/* FOOTER */
-footer{padding:2.5rem var(--gutter);background:#030711;border-top:1px solid var(--border);text-align:center;font-size:.72rem;color:var(--muted)}
+footer{padding:2.5rem var(--g);background:#030711;border-top:1px solid var(--border);text-align:center;font-size:.7rem;color:var(--muted)}
 
-@media(max-width:800px){
-  .facts-grid,.ni-grid,.rules-grid{grid-template-columns:1fr}
+@media(max-width:900px){
+  .facts-grid,.pkg-grid,.disc-grid{grid-template-columns:1fr 1fr}
+  .rules-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .facts-grid,.pkg-grid,.disc-grid,.ni-grid,.rules-grid,.locc-items{grid-template-columns:1fr}
   .journey{flex-direction:column}
   .step+.step:before{content:"↓";left:50%;top:-14px;transform:translateX(-50%)}
+  .cd-widget{padding:1.2rem 1.4rem}
 }
 </style>
 </head>
@@ -150,114 +214,131 @@ footer{padding:2.5rem var(--gutter);background:#030711;border-top:1px solid var(
   <div class="nav-links">
     <a href="#produto">Produto</a>
     <a href="#jornada">Jornada</a>
+    <a href="#cross-sell">Cross-sell</a>
     <a href="#abordagem">Abordagem</a>
-    <a href="#objecoes">Objeções</a>
     <a href="#fechamento">Fechamento</a>
+    <a href="#objecoes">Objeções</a>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-tag">Uso interno · Equipe de Vendas</div>
     <p class="kicker">Playbook de Vendas · Dia dos Namorados 2026</p>
     <h1 class="big">Uma Noite em<br><span>Saint-Tropez</span></h1>
-    <p class="lead" style="max-width:640px;margin-top:1.2rem">
-      Este guia é o seu mapa para converter cada lead em uma reserva confirmada.
-      Conheça o produto, domine a jornada e feche com confiança.
-      Cada lugar vendido é R$&nbsp;295. Temos 100 lugares. Bora.
+    <p class="lead-d" style="max-width:640px;margin-top:1.1rem">
+      Este é o seu manual de conversão. Conheça o produto, domine a jornada, ofereça o pacote completo e feche com confiança. Cada lugar vendido é R$&nbsp;295. Temos 100. Bora.
     </p>
     <div class="hero-ctas">
-      <a class="btn btn-gold" href="#jornada">Ver a jornada</a>
+      <a class="btn btn-gold" href="#cross-sell">Pacotes & Cross-sell</a>
       <a class="btn btn-out" href="#abordagem">Scripts de abordagem</a>
+    </div>
+
+    <!-- Countdown -->
+    <div class="cd-widget">
+      <div class="cd-row">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">—</span><div class="cd-lbl">dias</div></div>
+        <div class="cd-dot">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">—</span><div class="cd-lbl">horas</div></div>
+        <div class="cd-dot">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">—</span><div class="cd-lbl">min</div></div>
+        <div class="cd-dot">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">—</span><div class="cd-lbl">seg</div></div>
+      </div>
+      <div class="cd-meta">
+        Para fechar 100 reservas antes do evento: meta de <strong id="cd-meta">—</strong> reservas/dia a partir de hoje
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PRODUTO -->
+<!-- ══ PRODUTO ══ -->
 <section class="light" id="produto">
   <div class="wrap">
-    <p class="kicker">Seção 01</p>
+    <p class="kicker kicker-d">Seção 01</p>
     <h2 class="h2">O que estamos vendendo</h2>
-    <p class="lead" style="margin-top:1rem;max-width:720px">
-      Uma experiência gastronômica exclusiva à beira-mar, no <strong>12 de junho de 2026</strong>.
-      Não é um jantar qualquer — é uma noite desenhada para ser inesquecível.
+    <p class="lead-l" style="margin-top:1rem;max-width:720px">
+      Uma experiência gastronômica exclusiva à beira-mar no <strong>12 de junho de 2026</strong>. Não é um jantar qualquer — é uma noite desenhada para ser inesquecível, do primeiro brinde ao último acorde de jazz.
     </p>
 
     <div class="facts-grid">
       <div class="fact">
         <div class="fact-icon">📅</div>
         <div class="fact-title">Data única</div>
-        <div class="fact-desc">12 de junho de 2026 — Dia dos Namorados. Não há segunda chance. O senso de urgência é real.</div>
+        <div class="fact-desc">12 de junho de 2026. Não há segunda chance. O senso de urgência é real e legítimo.</div>
       </div>
       <div class="fact">
         <div class="fact-icon">🕗</div>
-        <div class="fact-title">4 horários</div>
-        <div class="fact-desc">20h · 21h · 22h · 23h. Cada horário tem vagas limitadas. Os serviços encerram às 23h59.</div>
+        <div class="fact-title">Chegada em 4 horários</div>
+        <div class="fact-desc"><strong>20h · 21h · 22h · 23h.</strong> São horários de <strong>chegada</strong> e controle operacional, não sessões por hora. O casal fica à vontade até as <strong>23h59</strong> — sem pressa, sem limite de tempo na mesa.</div>
       </div>
       <div class="fact">
         <div class="fact-icon">👫</div>
         <div class="fact-title">Mesas flexíveis</div>
-        <div class="fact-desc">Para 2, 4, 6 ou 8 pessoas. Mesas para grupos exigem reserva prévia. Não fazemos para 1.</div>
+        <div class="fact-desc">Para 2, 4, 6 ou 8 pessoas. Grupos exigem reserva prévia. Mínimo 2 pessoas — é uma experiência a dois (ou mais).</div>
       </div>
       <div class="fact">
         <div class="fact-icon">🍽️</div>
         <div class="fact-title">Menu degustação</div>
-        <div class="fact-desc"><strong>NÃO é à la carte.</strong> São 3 tempos fixos: entrada, prato principal e sobremesa. Menu assinado inspirado na Riviera Francesa.</div>
+        <div class="fact-desc"><strong>Não é à la carte.</strong> São 3 tempos em sequência: entrada, prato principal e sobremesa. Menu assinado inspirado na Riviera Francesa.</div>
       </div>
       <div class="fact">
         <div class="fact-icon">🎷</div>
         <div class="fact-title">Jazz ao vivo</div>
-        <div class="fact-desc">Grupo de jazz durante toda a noite. <strong>Não cobramos couvert artístico</strong> — já está no valor do jantar.</div>
+        <div class="fact-desc">Grupo de jazz durante toda a noite. <strong>Couvert artístico já incluso</strong> — sem cobranças extras pela música.</div>
       </div>
       <div class="fact">
         <div class="fact-icon">💰</div>
         <div class="fact-title">R$ 295 / pessoa</div>
-        <div class="fact-desc">R$ 590 o casal. Total máximo: R$ 29.500 (100 lugares × R$ 295). Cada reserva conta.</div>
+        <div class="fact-desc">R$ 590 o casal. Receita potencial total: <strong>R$ 29.500</strong>. Cada reserva que você fecha conta diretamente.</div>
       </div>
     </div>
 
-    <div class="sep">O que está incluído e o que não está</div>
+    <div class="alert-box">
+      <p>⏱ <strong>Importante sobre os horários:</strong> O cliente escolhe o horário de <strong>chegada</strong>. Não são sessões por hora. Após sentar, não há limite de tempo — ele pode ficar até as 23h59. Isso elimina qualquer objeção de "correria" e valoriza ainda mais a experiência. Comunique isso com confiança.</p>
+    </div>
+
+    <div class="sep sep-l">O que está incluído e o que não está</div>
 
     <div class="ni-grid">
       <div class="ni-card ni-in">
-        <div class="ni-label">✓ Incluído</div>
+        <div class="ni-label">✓ Incluído no valor</div>
         <ul class="ni-list">
           <li>3 tempos do menu degustação completo</li>
           <li>Água e água com gás à mesa</li>
-          <li>Música ao vivo (jazz)</li>
+          <li>Música ao vivo (jazz) a noite toda</li>
           <li>Couvert artístico (sem cobrança adicional)</li>
           <li>Serviço de equipe especializada</li>
-          <li>Ambiente à beira-mar</li>
+          <li>Ambiente exclusivo à beira-mar</li>
         </ul>
       </div>
       <div class="ni-card ni-out">
-        <div class="ni-label">⚠ Não incluído (cobra à parte)</div>
+        <div class="ni-label">⚠ Não incluído — cobra à parte</div>
         <ul class="ni-list">
-          <li>Bebidas alcoólicas (vinhos, drinques, espumantes)</li>
-          <li>Água mineral com gás premium</li>
-          <li>Itens adicionais fora do menu</li>
-          <li>Decoração especial de mesa (pacote extra)</li>
+          <li>Bebidas alcoólicas (vinhos, espumantes, drinques)</li>
+          <li>Harmonizações indicadas pelo sommelier</li>
+          <li>Itens fora do menu de degustação</li>
+          <li>Pacote romântico de quarto (ofereça como up-sell)</li>
           <li>Estacionamento (conforme disponibilidade)</li>
         </ul>
       </div>
     </div>
 
-    <div class="script-box" style="margin-top:2rem">
-      <p>💡 <strong>Sobre as bebidas:</strong> Nosso sommelier vai sugerir vinhos que harmonizam com cada tempo do menu. O cliente escolhe na hora — não é obrigatório. Mas quando bem apresentado, a maioria aceita e a conta sobe naturalmente.</p>
+    <div class="alert-box" style="margin-top:1.5rem">
+      <p>🍷 <strong>Sobre as bebidas:</strong> O sommelier estará presente para sugerir a harmonização ideal em cada tempo. O cliente escolhe na hora — não é obrigatório. Mas quando bem apresentado, a maioria aceita. Apresente como um cuidado especial, não como uma venda extra.</p>
     </div>
   </div>
 </section>
 
-<!-- JORNADA -->
-<section id="jornada" style="background:var(--deep)">
+<!-- ══ JORNADA ══ -->
+<section class="dark" id="jornada">
   <div class="wrap">
     <p class="kicker">Seção 02</p>
     <h2 class="h2">A jornada do lead</h2>
-    <p class="lead" style="margin-top:1rem;max-width:680px">
-      Cada lead percorre um caminho antes de chegar em você. Entender essa jornada é essencial para abordá-lo no momento certo.
+    <p class="lead-d" style="margin-top:1rem;max-width:680px">
+      Cada lead percorre um caminho antes de chegar em você. Entender esse fluxo é essencial para abordá-lo no momento certo — e com as informações certas em mãos.
     </p>
-
     <div class="journey">
       <div class="step">
         <div class="step-num">1</div>
@@ -267,247 +348,383 @@ footer{padding:2.5rem var(--gutter);background:#030711;border-top:1px solid var(
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-title">Landing Page</div>
-        <div class="step-desc">Lead acessa namorados.saishotel.com.br, vê o menu, escolhe horário e pessoas</div>
+        <div class="step-desc">Acessa namorados.saishotel.com.br, conhece o menu e escolhe horário e pessoas</div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-title">Formulário</div>
-        <div class="step-desc">Preenche nome, e-mail, telefone, Instagram (opcional), horário e nº de pessoas</div>
+        <div class="step-desc">Preenche nome, e-mail, telefone, horário e número de pessoas</div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div class="step-title">WhatsApp</div>
-        <div class="step-desc">Clica no botão — abre WhatsApp com mensagem pré-preenchida para o hotel</div>
+        <div class="step-desc">Clica no botão — abre WhatsApp com mensagem pré-preenchida</div>
         <div class="step-tag">tag: reserva-namorados-2026</div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
         <div class="step-title">Asksuite</div>
-        <div class="step-desc">Mensagem chega no live chat com a tag. <strong>Você recebe o lead aqui.</strong></div>
+        <div class="step-desc">Chega no live chat com a tag. <strong style="color:var(--gold-l)">Você entra em ação aqui.</strong></div>
         <div class="step-tag">+ RD Station</div>
       </div>
       <div class="step">
         <div class="step-num">6</div>
         <div class="step-title">Venda</div>
-        <div class="step-desc">Você aborda, confirma dados, tira dúvidas e fecha a reserva</div>
+        <div class="step-desc">Aborda, confirma dados, apresenta o pacote completo e fecha</div>
       </div>
       <div class="step">
         <div class="step-num">7</div>
         <div class="step-title">Pagamento</div>
-        <div class="step-desc">Gera link Safrapay e envia no WhatsApp. Cliente paga online.</div>
+        <div class="step-desc">Gera link Safrapay com o valor do pacote escolhido</div>
       </div>
       <div class="step">
         <div class="step-num">8</div>
         <div class="step-title">Painel</div>
-        <div class="step-desc">Você entra em /painel e marca a reserva como <strong>Pago</strong></div>
+        <div class="step-desc">Marca como <strong style="color:var(--gold-l)">Pago</strong> em /painel. Reserva confirmada.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABORDAGEM -->
-<section id="abordagem" style="background:var(--mid)">
+<!-- ══ CROSS-SELL ══ -->
+<section style="background:var(--mid)" id="cross-sell">
   <div class="wrap">
-    <p class="kicker">Seção 03</p>
-    <h2 class="h2">Como abordar o lead</h2>
-    <p class="lead" style="margin-top:1rem;max-width:700px">
-      Quando a mensagem chegar no Asksuite com a tag <span class="gold">reserva-namorados-2026</span>, você já sabe que essa pessoa demonstrou interesse real. Não perca tempo — responda em menos de 5 minutos.
+    <p class="kicker">Seção 03 · A venda mágica</p>
+    <h2 class="h2">Pacote completo: jantar + quarto + L'Occitane</h2>
+    <p class="lead-d" style="margin-top:1rem;max-width:740px">
+      A maior oportunidade de receita não é só o jantar — é transformar uma noite em <strong style="color:var(--gold-l)">uma experiência completa que começa na mesa e termina no quarto</strong>. Apresente o pacote antes de enviar o link de pagamento.
     </p>
 
-    <div class="sep">Primeira mensagem — abertura</div>
+    <!-- L'Occitane -->
+    <div class="sep sep-d">Pacote Romântico L'Occitane en Provence</div>
 
-    <div class="script-box">
-      <p>Boa noite, <strong>[Nome]</strong>! 🌊</p><br>
-      <p>Que ótima escolha para o Dia dos Namorados. Aqui é o <strong>[Seu nome]</strong>, da equipe do Sais Beach Living Hotel.</p><br>
-      <p>Vi que você tem interesse no nosso jantar degustação <em>Uma Noite em Saint-Tropez</em> — serão apenas 100 lugares, com menu de 3 tempos à beira-mar e jazz ao vivo.</p><br>
-      <p>Você escolheu o horário das <strong>[horário do formulário]</strong> para <strong>[nº de pessoas]</strong>, certo? Posso confirmar essa mesa para vocês agora mesmo. 😊</p>
-      <p class="script-tip">💡 Use o nome e os dados que vieram no formulário. Mostre que você já o conhece — isso quebra barreiras.</p>
+    <div class="locc-hero">
+      <h3>L'Occitane en Provence no quarto de vocês</h3>
+      <p>
+        A <strong>L'Occitane en Provence</strong> é uma das marcas de cosméticos naturais de luxo mais desejadas do mundo, nascida no sul da França — o mesmo universo que inspira a nossa noite em Saint-Tropez. Imagine chegar no quarto após o jantar e encontrar um ambiente que foi preparado especialmente para o casal, impregnado pelo aroma inconfundível da Provença. Uma extensão da experiência que começou na mesa, agora em total privacidade.
+      </p>
+      <div class="locc-items">
+        <div class="locc-item">Amenities exclusivos L'Occitane en Provence (shampoo, condicionador, sabonete, body lotion)</div>
+        <div class="locc-item">Vela aromática — perfume que preenche o quarto com a essência da Provence</div>
+        <div class="locc-item">Bombons artesanais com geleia de pimenta — o toque inesperado e marcante</div>
+        <div class="locc-item">Tábua de frios selecionados para recepção ao casal</div>
+        <div class="locc-item">Folhagens e vasos com flores frescas decorando o ambiente</div>
+        <div class="locc-item">Luzes decorativas que transformam a iluminação do quarto</div>
+        <div class="locc-item">Manta decorativa de luxo — conforto e estética</div>
+        <div class="locc-item">Espumante gelado para o último brinde da noite, no quarto</div>
+      </div>
+      <div class="locc-price">
+        <strong>R$ 498</strong>
+        <span>Pacote romântico completo · adicionado à hospedagem</span>
+      </div>
     </div>
 
-    <div class="sep">Se o lead demorou para responder o formulário</div>
-
-    <div class="script-box">
-      <p>Olá, <strong>[Nome]</strong>! Tudo bem?</p><br>
-      <p>Vi que você demonstrou interesse no jantar de Dia dos Namorados do Sais Hotel. Queria te avisar que os lugares estão sendo preenchidos — e o horário das <strong>[horário]</strong> ainda tem vagas disponíveis. 🕯️</p><br>
-      <p>Posso te mandar os detalhes completos e já reservar a mesa de vocês?</p>
-      <p class="script-tip">💡 Crie urgência real — os lugares são limitados e isso é verdade. Use com responsabilidade.</p>
+    <div class="script-box" style="margin-top:1.5rem">
+      <p>
+        <strong>Como gerar valor sem parecer empurrão:</strong><br><br>
+        "A ideia aqui não é só dormir no hotel. É fazer a noite continuar. Depois do jantar, vocês sobem para um quarto já preparado com aroma L'Occitane, espumante gelado, flores, luzes, vela e uma recepção íntima. O jantar vira o começo da experiência — e o quarto vira o grande final."
+      </p>
+      <p class="tip">💡 Venda a cena. O pacote L'Occitane não é uma lista de itens, é a sensação de chegar no quarto e perceber que tudo foi pensado para os dois.</p>
     </div>
 
-    <div class="sep">Se o lead pede mais informações sobre o menu</div>
+    <!-- Cupom -->
+    <div class="sep sep-d">Cupom exclusivo pós-jantar</div>
 
-    <div class="script-box">
-      <p>Com prazer! O menu é uma degustação de 3 tempos, sem escolha à la carte — é uma sequência pensada como experiência:</p><br>
-      <p>🥂 <strong>Entrada:</strong> Atum com gazpacho, croquetes de pato ou vol-au-vent de frutos do mar</p><br>
-      <p>🍝 <strong>Prato Principal:</strong> Linguine aux fruits de mer, robalo ao bisque ou ravioli de carnes nobres</p><br>
-      <p>🍫 <strong>Sobremesa:</strong> Petit gâteau ou trufa de chocolate belga</p><br>
-      <p>As bebidas (vinhos, espumantes) são à parte — nosso sommelier vai sugerir as harmonizações na hora. Jazz ao vivo a noite toda, sem couvert artístico.</p>
-      <p class="script-tip">💡 Depois de apresentar o menu, retorne ao fechamento: "O que acha? Posso garantir a mesa de vocês?"</p>
+    <div class="cupom-box">
+      <h3>Eles ganharam. Ofereça com generosidade.</h3>
+      <div class="cupom-code">STTROPEZ15</div>
+      <p>
+        Após confirmar o jantar, informe ao cliente que ele ganhou um <strong>cupom de 15% de desconto</strong> para 1 diária no Sais Hotel. Use isso como gancho natural para apresentar os pacotes completos. Não é um desconto — é um presente da noite.
+      </p>
+      <p style="margin-top:.7rem">Aplicável em qualquer categoria de acomodação:</p>
+      <div class="rooms-list">
+        <span class="room-tag">Pôr do Sol</span>
+        <span class="room-tag">Lateral Mar</span>
+        <span class="room-tag">Varanda Mar</span>
+        <span class="room-tag">Frente Mar</span>
+        <span class="room-tag">Suíte Frente Mar</span>
+        <span class="room-tag">Suíte Panorâmica</span>
+      </div>
+    </div>
+
+    <!-- Pacotes -->
+    <div class="sep sep-d">Pacotes prontos para oferecer — já com 15% de desconto na diária</div>
+
+    <div class="pkg-grid">
+      <div class="pkg">
+        <div class="pkg-type">Pacote Romântico</div>
+        <div class="pkg-room">Pôr do Sol</div>
+        <div class="pkg-price">R$ 1.620 <small>casal</small></div>
+        <div class="pkg-parcel">a partir de R$ 350/mês no cartão</div>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-items">
+          <li>Jantar degustação para 2 pessoas</li>
+          <li>1 diária com café da manhã (15% off)</li>
+          <li>Pacote L'Occitane en Provence</li>
+          <li>Cupom STTROPEZ15 já aplicado</li>
+        </ul>
+      </div>
+      <div class="pkg featured">
+        <div class="pkg-badge">Mais escolhido</div>
+        <div class="pkg-type">Pacote Romântico</div>
+        <div class="pkg-room">Varanda Mar</div>
+        <div class="pkg-price">R$ 1.960 <small>casal</small></div>
+        <div class="pkg-parcel">a partir de R$ 350/mês no cartão</div>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-items">
+          <li>Jantar degustação para 2 pessoas</li>
+          <li>1 diária com café da manhã (15% off)</li>
+          <li>Pacote L'Occitane en Provence</li>
+          <li>Varanda com vista parcial do mar</li>
+        </ul>
+      </div>
+      <div class="pkg">
+        <div class="pkg-type">Pacote Romântico</div>
+        <div class="pkg-room">Frente Mar</div>
+        <div class="pkg-price">R$ 2.170 <small>casal</small></div>
+        <div class="pkg-parcel">a partir de R$ 350/mês no cartão</div>
+        <div class="pkg-divider"></div>
+        <ul class="pkg-items">
+          <li>Jantar degustação para 2 pessoas</li>
+          <li>1 diária com café da manhã (15% off)</li>
+          <li>Pacote L'Occitane en Provence</li>
+          <li>Vista frontal para o mar — máxima experiência</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="script-box" style="margin-top:2rem">
+      <p>
+        <strong>"[Nome], quero te contar uma coisa antes de te mandar o link."</strong><br><br>
+        "Todo cliente que reserva o jantar conosco ganha o cupom <strong>STTROPEZ15</strong> — 15% de desconto numa diária aqui no hotel. E aí a gente montou um pacote que muitos casais estão adorando:<br><br>
+        Jantar para vocês dois, uma diária com café da manhã incluído e um quarto que vai estar preparado com tudo da <strong>L'Occitane en Provence</strong> — flores, vela, bombons, espumante gelado esperando vocês chegarem do jantar.<br><br>
+        Temos esse combo a partir de <strong>R$ 1.620</strong> no Pôr do Sol, ou <strong>R$ 1.960</strong> na Varanda Mar, com parcelas a partir de R$ 350 no cartão. Quer que eu monte o link completo pra vocês?"
+      </p>
+      <p class="tip">💡 Apresente como uma oportunidade, não como uma oferta. A noite já está sendo planejada — você está apenas completando ela.</p>
+    </div>
+
+    <div class="script-box" style="margin-top:1.5rem">
+      <p>
+        <strong>Se o cliente disser que quer só o jantar:</strong><br><br>
+        "Perfeito, eu garanto o jantar de vocês agora. E vou deixar registrado também o cupom <strong>STTROPEZ15</strong>, porque ele dá 15% de desconto em uma diária no Sais. Se vocês decidirem transformar a noite numa estadia completa, eu consigo recalcular o link com o quarto e o pacote romântico antes do pagamento."
+      </p>
+      <p class="tip">💡 Não force. Deixe a porta aberta antes do link e reforce que ainda dá tempo de incluir a hospedagem no mesmo carrinho.</p>
     </div>
   </div>
 </section>
 
-<!-- OBJEÇÕES -->
-<section class="light" id="objecoes">
+<!-- ══ ABORDAGEM ══ -->
+<section class="dark" id="abordagem">
   <div class="wrap">
     <p class="kicker">Seção 04</p>
-    <h2 class="h2">Objeções e respostas</h2>
-    <p class="lead" style="margin-top:1rem;max-width:680px">
-      Todo lead hesita. Aqui estão as objeções mais comuns e como respondê-las com confiança.
+    <h2 class="h2">Como abordar o lead</h2>
+    <p class="lead-d" style="margin-top:1rem;max-width:700px">
+      Quando a mensagem chegar no Asksuite com a tag <span class="gold">reserva-namorados-2026</span>, responda em menos de 5 minutos. O lead está quente — não deixe esfriar.
     </p>
 
+    <div class="sep sep-d">Primeira mensagem — abertura</div>
+    <div class="script-box">
+      <p>Boa noite, <strong>[Nome]</strong>! 🌊<br><br>
+      Aqui é o <strong>[Seu nome]</strong>, da equipe do Sais Beach Living Hotel. Que ótima escolha para o Dia dos Namorados.<br><br>
+      Vi que você tem interesse no nosso jantar degustação <em>Uma Noite em Saint-Tropez</em> — são apenas 100 lugares, com menu de 3 tempos à beira-mar e jazz ao vivo a noite toda.<br><br>
+      Você escolheu o horário das <strong>[horário]</strong> para <strong>[nº de pessoas]</strong>, certo? Posso confirmar a mesa de vocês agora mesmo. 😊</p>
+      <p class="tip">💡 Use os dados que vieram no formulário. Mostrar que você já conhece o cliente quebra barreiras imediatamente.</p>
+    </div>
+
+    <div class="sep sep-d">Se o lead pede detalhes do menu</div>
+    <div class="script-box">
+      <p>Com prazer! São 3 tempos em sequência — uma degustação guiada:<br><br>
+      🥂 <strong>Entrada:</strong> Atum com gazpacho, croquetes de pato ou vol-au-vent de frutos do mar<br>
+      🍝 <strong>Principal:</strong> Linguine aux fruits de mer, robalo ao bisque ou ravioli de carnes nobres<br>
+      🍫 <strong>Sobremesa:</strong> Petit gâteau ou trufa de chocolate belga<br><br>
+      O horário que você escolhe é a hora de <strong>chegada</strong> — depois de sentar, não há pressa. Vocês ficam à vontade até as 23h59. O sommelier estará lá para sugerir as harmonizações se quiserem. Jazz ao vivo a noite toda, sem cobrar couvert.</p>
+      <p class="tip">💡 Sempre volte ao fechamento: "O que acha? Posso garantir a mesa de vocês?"</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FECHAMENTO ══ -->
+<section style="background:var(--mid)" id="fechamento">
+  <div class="wrap">
+    <p class="kicker">Seção 05</p>
+    <h2 class="h2">Como fechar — passo a passo</h2>
+    <p class="lead-d" style="margin-top:1rem;max-width:680px">
+      Quando o lead sinalizar interesse, siga essa sequência. Não pule etapas — cada uma tem um papel na conversão.
+    </p>
+
+    <div class="cs-list">
+      <div class="cs">
+        <div>
+          <strong>Confirme os dados</strong>
+          <span>Repita em voz alta no chat: "Confirmando: mesa para [X] pessoas às [horário], dia 12 de junho, certo?" — isso gera comprometimento.</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div>
+          <strong>Pergunte sobre restrições alimentares</strong>
+          <span>"Algum de vocês tem alergia ou restrição? Vegetariano, intolerância ao glúten?" — demonstra cuidado e já avisa a cozinha.</span>
+        </div>
+      </div>
+      <div class="cs highlight">
+        <div>
+          <strong>⭐ Apresente o pacote completo — antes do link</strong>
+          <span>Use o script da Seção 03 antes de enviar o link. Ofereça os pacotes de R$1.620, R$1.960 ou R$2.170, todos para casal, com jantar, 1 diária com café da manhã e pacote L'Occitane. Se aceitarem, gere o link com o valor do pacote. Se não, siga com só o jantar. Nunca pule essa etapa.</span>
+        </div>
+      </div>
+      <div class="cs highlight">
+        <div>
+          <strong>⭐ Entregue o cupom STTROPEZ15</strong>
+          <span>"Mesmo que decidam não ficar desta vez, o cupom STTROPEZ15 dá 15% de desconto em qualquer futura estadia. É um presente da noite." — planta a semente para a próxima venda.</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div>
+          <strong>Gere o link no Safrapay</strong>
+          <span>Valor = jantar (R$295 × pessoas) + pacote L'Occitane (R$498) + diária escolhida, se houver. Envie com: "Você tem 24 horas para concluir. Após esse prazo, libero a mesa para outra reserva."</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div>
+          <strong>Confirme o pagamento e celebre</strong>
+          <span>"Perfeito, [Nome]! Reserva confirmada. O quarto já vai estar preparado pra vocês. Até dia 12 — vai ser uma noite incrível! 🥂"</span>
+        </div>
+      </div>
+      <div class="cs">
+        <div>
+          <strong>Marque como pago no painel</strong>
+          <span>Acesse namorados.saishotel.com.br/painel e clique em "✓ Marcar pago". Dashboard atualizado em tempo real para toda a equipe.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-safra">
+      <div class="icon">⚠️</div>
+      <h3>Botão Safrapay na LP — Em desenvolvimento</h3>
+      <p>O botão de pagamento direto na landing page está sendo integrado com o Safrapay. Por enquanto, <strong>todo pagamento é processado manualmente pelo vendedor</strong> — gere o link no painel Safrapay e envie no WhatsApp.</p>
+      <div class="alert-flow">
+        Vendedor confirma reserva → Safrapay: gera link com valor correto<br>
+        → Envia link no WhatsApp → Cliente paga → Notificação Safrapay<br>
+        → Vendedor marca "Pago" em /painel → Dashboard atualizado
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OBJEÇÕES ══ -->
+<section class="light" id="objecoes">
+  <div class="wrap">
+    <p class="kicker kicker-d">Seção 06</p>
+    <h2 class="h2">Objeções e respostas</h2>
+    <p class="lead-l" style="margin-top:1rem;max-width:680px">
+      Todo lead hesita. Aqui estão as objeções mais comuns e como respondê-las com segurança e verdade.
+    </p>
     <div class="obj-list">
       <div class="obj">
-        <div class="obj-q">Está caro. R$ 590 é muito para um jantar.</div>
-        <div class="obj-a">
-          "Entendo a sua preocupação — mas aqui você está pagando por uma <strong>experiência completa</strong>: menu degustação de 3 tempos criado pelo nosso chef, à beira-mar, com jazz ao vivo incluído. Em qualquer restaurante de mesmo nível em Maceió, o couvert artístico já custaria isso. Aqui está tudo dentro de R$ 295 por pessoa. São momentos assim que ficam para sempre."
-        </div>
+        <div class="obj-q">R$ 590 está caro para um jantar.</div>
+        <div class="obj-a">"Entendo. Mas pense assim: você está pagando por uma <strong>experiência completa</strong> — menu de 3 tempos criado por chef, à beira-mar, com jazz ao vivo incluído (sem couvert). Em qualquer restaurante equivalente, só o couvert já custaria isso. E você ainda pode ficar à mesa até as 23h59, sem pressa. São memórias assim que ficam para sempre."</div>
       </div>
       <div class="obj">
         <div class="obj-q">As bebidas não estão incluídas?</div>
-        <div class="obj-a">
-          "Sim, as bebidas são cobradas à parte — mas <strong>nosso sommelier vai estar presente</strong> para indicar o vinho ideal para cada tempo do menu. Você escolhe na hora, sem compromisso. Muitos casais optam por uma taça de espumante para começar e um tinto para o principal — fica em torno de R$ 100 a R$ 150 a mais por casal."
-        </div>
+        <div class="obj-a">"Sim, as bebidas são à parte — mas o <strong>sommelier vai estar presente</strong> para indicar o vinho ideal para cada tempo do menu. Você escolhe na hora, sem compromisso. Muitos casais optam por um espumante de entrada e um tinto no principal — fica em torno de R$ 100 a R$ 150 a mais pro casal. É um toque especial que eleva tudo."</div>
       </div>
       <div class="obj">
-        <div class="obj-q">Não é à la carte? Mas e se eu não gostar de algum prato?</div>
-        <div class="obj-a">
-          "O menu degustação é justamente o que torna a experiência especial — cada prato foi equilibrado com o próximo. Temos opções para diferentes paladares em cada tempo. <strong>Caso haja alguma restrição alimentar específica</strong>, pode nos informar agora que comunicamos à cozinha com antecedência."
-        </div>
+        <div class="obj-q">Não é à la carte? E se não gostar de algum prato?</div>
+        <div class="obj-a">"O menu degustação é justamente o que torna especial — cada prato foi equilibrado com o próximo. Temos variações em cada tempo. <strong>Se houver alguma restrição alimentar específica</strong>, me avisa agora que comunicamos à cozinha com antecedência. Eles são preparados para isso."</div>
       </div>
       <div class="obj">
         <div class="obj-q">Vou pensar e te respondo depois.</div>
-        <div class="obj-a">
-          "Claro, sem pressão! Só quero te avisar que o horário das <strong>[horário escolhido]</strong> está com poucas vagas — e quando esgota, não abrimos mais. Para garantir sem perder o lugar, você pode fazer a reserva agora e o pagamento só acontece quando eu te mandar o link. <strong>Que tal eu segurar a mesa por hoje?</strong>"
-        </div>
+        <div class="obj-a">"Claro! Só um aviso: o horário das <strong>[horário]</strong> está com poucas vagas. Quando esgota, não abrimos mais. Se quiser, posso deixar a mesa reservada agora e você decide sobre o pagamento em até 24 horas — sem compromisso até lá. <strong>Quer que eu faça isso por você?</strong>"</div>
       </div>
       <div class="obj">
-        <div class="obj-q">É só para casal? Somos 4 pessoas.</div>
-        <div class="obj-a">
-          "<strong>Ótima notícia — aceitamos mesas para grupos!</strong> Temos disponibilidade para 4, 6 ou 8 pessoas, desde que reservado com antecedência. Fica ainda mais especial comemorar com amigos. Posso reservar uma mesa para vocês 4?"
-        </div>
+        <div class="obj-q">Somos 4 amigos, não somos casal.</div>
+        <div class="obj-a">"<strong>Ótima notícia — aceitamos grupos!</strong> Temos mesas para 4, 6 ou 8 pessoas desde que reservadas com antecedência. Comemorar com amigos fica ainda mais especial. Posso reservar uma mesa pra vocês 4?"</div>
       </div>
       <div class="obj">
-        <div class="obj-q">Como funciona o pagamento?</div>
-        <div class="obj-a">
-          "Muito simples: confirmo a reserva agora, gero um link de pagamento seguro pelo <strong>Safrapay</strong> e te mando aqui no WhatsApp. Você paga pelo cartão de crédito ou débito, recebe a confirmação por e-mail e a reserva está garantida. Todo o processo leva menos de 5 minutos."
-        </div>
+        <div class="obj-q">Não preciso de quarto, só o jantar.</div>
+        <div class="obj-a">"Sem problema! Eu garanto o jantar de vocês. Só deixa eu te contar antes do link: todo cliente que reserva ganha o cupom <strong>STTROPEZ15</strong> — 15% numa diária aqui no Sais. Se vocês mudarem de ideia hoje, eu incluo a hospedagem e o pacote L'Occitane no mesmo carrinho. Se não, guardem o cupom para voltar depois. É um presente nosso."</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FECHAMENTO -->
-<section id="fechamento" style="background:var(--deep)">
+<!-- ══ DESCONTOS ══ -->
+<section class="dark" id="descontos">
   <div class="wrap">
-    <p class="kicker">Seção 05</p>
-    <h2 class="h2">Como fechar e confirmar</h2>
-    <p class="lead" style="margin-top:1rem;max-width:680px">
-      Quando o lead sinalizar interesse, siga este passo a passo sem desviar.
+    <p class="kicker">Seção 07</p>
+    <h2 class="h2">Descontos e negociação</h2>
+    <p class="lead-d" style="margin-top:1rem;max-width:680px">
+      Use com estratégia. Desconto não é fraqueza — é uma ferramenta de fechamento. Aplique na ordem certa.
     </p>
-
-    <div class="close-steps">
-      <div class="cs">
-        <div class="cs-body">
-          <strong>Confirme os dados da reserva</strong>
-          <span>Nome completo, e-mail, telefone, horário e número de pessoas. Repita em voz alta no chat: "Então confirmando: mesa para [X] pessoas às [horário], no dia 12 de junho, correto?"</span>
-        </div>
+    <div class="disc-grid">
+      <div class="disc">
+        <div class="disc-icon">💳</div>
+        <div class="disc-title">Pacote já com 15% off</div>
+        <div class="disc-desc">Os pacotes completos (R$1.620 / R$1.960 / R$2.170) já consideram 15% de desconto na diária via cupom STTROPEZ15. Esse desconto está "embutido" — valorize isso na apresentação.</div>
       </div>
-      <div class="cs">
-        <div class="cs-body">
-          <strong>Pergunte sobre restrições alimentares</strong>
-          <span>"Algum de vocês tem alergia ou restrição alimentar? Vegetariano, intolerância ao glúten?" — Isso demonstra cuidado e agiliza o serviço.</span>
-        </div>
+      <div class="disc">
+        <div class="disc-icon">📱</div>
+        <div class="disc-title">–5% no PIX à vista</div>
+        <div class="disc-desc">Para pagamento à vista via PIX, aplicar 5% adicional sobre o valor total. Use como argumento de fechamento quando o cliente estiver decidindo a forma de pagamento. "Se pagar hoje no PIX, consigo mais 5%."</div>
       </div>
-      <div class="cs">
-        <div class="cs-body">
-          <strong>Gere o link de pagamento no Safrapay</strong>
-          <span>Acesse o Safrapay, crie o link com o valor correto (R$ 295 × nº de pessoas) e envie no WhatsApp. Informe o prazo: "Você tem 24 horas para concluir o pagamento e garantir a reserva."</span>
-        </div>
+      <div class="disc">
+        <div class="disc-icon">👥</div>
+        <div class="disc-title">Grupos — negocie</div>
+        <div class="disc-desc">Para grupos de 6 ou 8 pessoas, há margem de negociação. Consulte a liderança antes de oferecer. Regra: nunca desconte sem antes verificar a disponibilidade do horário — grupo grande é receita garantida.</div>
       </div>
-      <div class="cs">
-        <div class="cs-body">
-          <strong>Confirme o recebimento do pagamento</strong>
-          <span>Quando o Safrapay notificar, envie uma mensagem de confirmação calorosa: "Perfeito, [Nome]! Reserva confirmada. Até dia 12 — vai ser uma noite incrível! 🥂"</span>
-        </div>
+      <div class="disc">
+        <div class="disc-icon">📅</div>
+        <div class="disc-title">Disponibilidade — negocie</div>
+        <div class="disc-desc">Conforme nos aproximamos do dia 12 com lugares ainda disponíveis, há margem para flexibilizar. Consulte a liderança. A urgência crescente é o melhor argumento — use o countdown da meta.</div>
       </div>
-      <div class="cs">
-        <div class="cs-body">
-          <strong>Marque como pago no painel</strong>
-          <span>Acesse namorados.saishotel.com.br/painel, encontre a reserva e clique em "✓ Marcar pago". Isso atualiza o dashboard operacional em tempo real.</span>
-        </div>
+      <div class="disc">
+        <div class="disc-icon">💳</div>
+        <div class="disc-title">Parcelamento</div>
+        <div class="disc-desc">Parcela mínima de R$350 nos cartões de crédito. Ofereça o parcelamento quando o cliente hesitar pelo valor — torna acessível sem depreciar a experiência. "Em 4x fica R$405 — cabe?"</div>
       </div>
-      <div class="cs">
-        <div class="cs-body">
-          <strong>Cross-sell: ofereça decoração de mesa</strong>
-          <span>"Aproveitando — temos pacotes de decoração especial da mesa para datas como essa. Posso te enviar as opções?" — Receita adicional com baixo esforço.</span>
-        </div>
+      <div class="disc">
+        <div class="disc-icon">🏨</div>
+        <div class="disc-title">Suítes — pergunte</div>
+        <div class="disc-desc">Suíte Frente Mar e Suíte Panorâmica têm valores diferenciados. Se o cliente demonstrar perfil premium, pergunte: "Quer que eu monte um pacote na suíte também?" — são os tickets mais altos.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ALERTA SAFRAPAY -->
-<section style="background:var(--mid)">
-  <div class="wrap">
-    <p class="kicker">Seção 06</p>
-    <h2 class="h2">Gateway de pagamento</h2>
-
-    <div class="alert-safra">
-      <div class="alert-icon">⚠️</div>
-      <h3>Botão Safrapay — Em desenvolvimento</h3>
-      <p>
-        O botão de pagamento direto na landing page está sendo desenvolvido para integração com o <strong>Safrapay</strong>.
-        Enquanto não está disponível, <strong>todo pagamento é processado manualmente pelo vendedor</strong>:
-        gere o link no painel do Safrapay e envie diretamente no WhatsApp do cliente.
-      </p>
-      <div class="alert-flow">
-        Vendedor confirma reserva no Asksuite<br>
-        → Acessa o painel do Safrapay<br>
-        → Gera link com o valor correto (R$ 295 × pessoas)<br>
-        → Envia o link no WhatsApp<br>
-        → Cliente paga → Notificação Safrapay<br>
-        → Vendedor marca como "Pago" em /painel
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REGRAS RÁPIDAS -->
+<!-- ══ REGRAS ══ -->
 <section class="light">
   <div class="wrap">
-    <p class="kicker">Referência rápida</p>
+    <p class="kicker kicker-d">Referência rápida</p>
     <h2 class="h2">Regras e limites</h2>
-
     <div class="rules-grid">
       <div class="rule">
-        <div class="rule-title">Total de lugares</div>
+        <div class="rule-lbl">Total de lugares</div>
         <div class="rule-val">100 pax</div>
         <div class="rule-desc">Distribuídos entre os 4 horários. Quando lotou, lotou.</div>
       </div>
       <div class="rule">
-        <div class="rule-title">Valor por pessoa</div>
+        <div class="rule-lbl">Valor por pessoa</div>
         <div class="rule-val">R$ 295</div>
-        <div class="rule-desc">Fixo. Não há desconto, não há meia-entrada.</div>
+        <div class="rule-desc">Fixo. Sem desconto individual no jantar.</div>
       </div>
       <div class="rule">
-        <div class="rule-title">Tamanho mínimo de mesa</div>
-        <div class="rule-val">2 pessoas</div>
-        <div class="rule-desc">É uma experiência a dois (ou mais). Não vendemos para 1.</div>
+        <div class="rule-lbl">Horários de chegada</div>
+        <div class="rule-val">20h · 21h · 22h · 23h</div>
+        <div class="rule-desc">Controle de chegada, não sessão por hora. Permanência até 23h59.</div>
       </div>
       <div class="rule">
-        <div class="rule-title">Tamanho máximo de mesa</div>
-        <div class="rule-val">8 pessoas</div>
-        <div class="rule-desc">Grupos acima de 8 entram em contato diretamente.</div>
+        <div class="rule-lbl">Mesa mínima / máxima</div>
+        <div class="rule-val">2 — 8 pax</div>
+        <div class="rule-desc">Grupos acima de 8: contato direto com a liderança.</div>
       </div>
       <div class="rule">
-        <div class="rule-title">Encerramento dos serviços</div>
-        <div class="rule-val">23h59</div>
-        <div class="rule-desc">Todos os horários encerram até meia-noite.</div>
-      </div>
-      <div class="rule">
-        <div class="rule-title">Prazo para pagamento</div>
+        <div class="rule-lbl">Prazo para pagamento</div>
         <div class="rule-val">24 horas</div>
-        <div class="rule-desc">Após envio do link Safrapay. Sem pagamento = reserva liberada.</div>
+        <div class="rule-desc">Após envio do link Safrapay. Sem pagamento = mesa liberada.</div>
+      </div>
+      <div class="rule">
+        <div class="rule-lbl">Cupom hospedagem</div>
+        <div class="rule-val">STTROPEZ15</div>
+        <div class="rule-desc">15% de desconto em 1 diária. Para todos os clientes do jantar.</div>
       </div>
     </div>
   </div>
@@ -515,8 +732,44 @@ footer{padding:2.5rem var(--gutter);background:#030711;border-top:1px solid var(
 
 <footer>
   <p>Sais Beach Living Hotel · Playbook DN2026 · Uso interno exclusivo</p>
-  <p style="margin-top:.4rem">Dúvidas? Fale com a liderança de vendas.</p>
+  <p style="margin-top:.35rem">Dúvidas? Fale com a liderança de vendas antes de negociar descontos extras.</p>
 </footer>
 
+<script>
+// Countdown
+const TARGET = new Date('2026-06-12T23:59:00-03:00');
+const TOTAL  = 100;
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function tick(){
+  const now  = new Date();
+  const diff = TARGET - now;
+  if(diff <= 0){
+    document.getElementById('cd-d').textContent = '00';
+    document.getElementById('cd-h').textContent = '00';
+    document.getElementById('cd-m').textContent = '00';
+    document.getElementById('cd-s').textContent = '00';
+    document.getElementById('cd-meta').textContent = 'Evento encerrado';
+    return;
+  }
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
+
+  document.getElementById('cd-d').textContent = pad(days);
+  document.getElementById('cd-h').textContent = pad(hours);
+  document.getElementById('cd-m').textContent = pad(mins);
+  document.getElementById('cd-s').textContent = pad(secs);
+
+  const perDay = days > 0 ? Math.ceil(TOTAL / days) : TOTAL;
+  document.getElementById('cd-meta').textContent =
+    perDay + ' reservas/dia — ' + days + ' dias restantes para o evento';
+}
+
+tick();
+setInterval(tick, 1000);
+</script>
 </body>
 </html>
