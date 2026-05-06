@@ -273,9 +273,9 @@ function renderDash(data) {
   data.forEach(function(r, i) {
     var utm = [r.utm_source, r.utm_medium, r.utm_campaign].filter(Boolean).join(' / ');
     var btns = '';
-    if (r.status !== 'pago') btns += '<button class="status-btn" onclick="patchStatus(\'' + esc(r.id) + '\',\'pago\')">Pago</button>';
-    if (r.status !== 'cancelado') btns += '<button class="status-btn" onclick="patchStatus(\'' + esc(r.id) + '\',\'cancelado\')">Cancelar</button>';
-    if (r.status !== 'reservado') btns += '<button class="status-btn" onclick="patchStatus(\'' + esc(r.id) + '\',\'reservado\')">Reservado</button>';
+    if (r.status !== 'pago') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="pago">Pago</button>';
+    if (r.status !== 'cancelado') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="cancelado">Cancelar</button>';
+    if (r.status !== 'reservado') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="reservado">Reservado</button>';
     rows += '<tr>' +
       '<td style="color:var(--muted);font-family:sans-serif;font-size:11px">' + (data.length - i) + '</td>' +
       '<td>' + esc(r.nome || '—') + '</td>' +
@@ -293,6 +293,12 @@ function renderDash(data) {
   document.getElementById('tbody').innerHTML = rows ||
     '<tr><td colspan="11" style="text-align:center;padding:48px;color:var(--muted);font-family:sans-serif;font-size:13px">Nenhuma reserva encontrada</td></tr>';
 }
+
+document.getElementById('tbody').addEventListener('click', function(e) {
+  var btn = e.target.closest('.status-btn');
+  if (!btn) return;
+  patchStatus(btn.dataset.id, btn.dataset.st);
+});
 
 if (sessionStorage.getItem('painel_ok') === '1') {
   document.getElementById('login').style.display = 'none';
