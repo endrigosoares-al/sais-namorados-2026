@@ -37,26 +37,48 @@ export async function onRequest({ request, env }) {
 
 async function fireRdsPago(r, origin) {
   const voucherUrl = origin + '/voucher?id=' + r.id;
+
+  // Legacy API — cria o identificador no dropdown de automações do RD
+  const body = new URLSearchParams({
+    token_rdstation:  '8600b85d04d88f1318a3d23fe793a344',
+    identificador:    'pagamento-confirmado-namorados-2026',
+    email:            r.email,
+    nome:             r.nome           || '',
+    celular:          r.celular        || '',
+    cf_horario:       r.horario        || '',
+    cf_pessoas:       String(r.pessoas || ''),
+    cf_valor_total:   String(r.valor   || ''),
+    cf_voucher_url:   voucherUrl,
+  });
+  const r1 = fetch('https://www.rdstation.com.br/api/1.2.1/conversions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body.toString()
+  });
+
+  // Platform API — enriquece o contato com tags e campo voucher
   const payload = {
     event_type: 'CONVERSION',
     event_family: 'CDP',
     payload: {
       conversion_identifier: 'pagamento-confirmado-namorados-2026',
       tags: ['pago', 'namorados-2026'],
-      name:            r.nome     || '',
-      email:           r.email,
-      mobile_phone:    r.celular  || '',
-      cf_horario:      r.horario  || '',
-      cf_pessoas:      String(r.pessoas || ''),
-      cf_valor_total:  String(r.valor   || ''),
-      cf_voucher_url:  voucherUrl,
+      name:           r.nome    || '',
+      email:          r.email,
+      mobile_phone:   r.celular || '',
+      cf_horario:     r.horario || '',
+      cf_pessoas:     String(r.pessoas || ''),
+      cf_valor_total: String(r.valor   || ''),
+      cf_voucher_url: voucherUrl,
     }
   };
-  return fetch('https://api.rd.services/platform/conversions?api_key=' + RDS_API_KEY, {
+  const r2 = fetch('https://api.rd.services/platform/conversions?api_key=' + RDS_API_KEY, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   });
+
+  return Promise.all([r1, r2]);
 }
 
 function json(body, status = 200) {
