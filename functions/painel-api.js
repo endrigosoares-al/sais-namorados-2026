@@ -36,6 +36,16 @@ export async function onRequest({ request, env }) {
     return json({ ok: true });
   }
 
+  if (request.method === 'DELETE') {
+    const { id } = await request.json().catch(() => ({}));
+    if (!id) return json({ error: 'bad_request' }, 400);
+    const data = (await kv.get('reservas', 'json')) || [];
+    const next = data.filter(r => r.id !== id);
+    if (next.length === data.length) return json({ error: 'not_found' }, 404);
+    await kv.put('reservas', JSON.stringify(next));
+    return json({ ok: true, removed: data.length - next.length });
+  }
+
   return new Response('Method Not Allowed', { status: 405 });
 }
 
