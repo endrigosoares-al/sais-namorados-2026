@@ -222,10 +222,7 @@
             <div class="field"><label for="name">Nome completo</label><input id="name" name="name" autocomplete="name" required></div>
             <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
           </div>
-          <div class="form-row">
-            <div class="field"><label for="phone">Telefone/WhatsApp</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
-            <div class="field"><label for="instagram">@Instagram opcional</label><input id="instagram" name="instagram" placeholder="@"></div>
-          </div>
+          <div class="field"><label for="phone">Telefone/WhatsApp</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
           <div class="field">
             <label for="party">Quantidade de pessoas</label>
             <div class="stepper" role="group" aria-label="Quantidade de pessoas">
@@ -318,7 +315,6 @@
           email,
           nome:            qs('#name')?.value.trim()      || '',
           celular:         qs('#phone')?.value.trim()     || '',
-          cf_instagram:    qs('#instagram')?.value.trim() || '',
           cf_pessoas:      String(people),
           cf_horario:      slot,
           cf_valor_total:  String(people * pricePerPerson),
