@@ -56,6 +56,13 @@ const HTML = `<!DOCTYPE html>
     .slot-bar { height: 2px; background: rgba(193,161,92,.18); margin-top: 14px }
     .slot-bar-fill { height: 100%; background: var(--gold); transition: width .6s }
 
+    /* FILTERS */
+    .filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 14px }
+    .filter-select, .filter-input { background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 9px 14px; font-size: 13px; font-family: sans-serif; outline: none; transition: border-color .2s }
+    .filter-input { min-width: 260px; flex: 1 1 260px; max-width: 360px }
+    .filter-select:focus, .filter-input:focus { border-color: var(--gold) }
+    .filter-count { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-family: sans-serif; margin-left: auto }
+
     /* TABLE */
     .refresh-row { display: flex; align-items: center; gap: 16px; margin-bottom: 16px }
     .refresh-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 8px 20px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; font-family: sans-serif; cursor: pointer; transition: all .2s }
@@ -126,7 +133,7 @@ const HTML = `<!DOCTYPE html>
     <div class="card">
       <p class="card-label">Vagas Livres</p>
       <p class="card-value" id="c-vagas">—</p>
-      <p class="card-sub">capacidade total: 150</p>
+      <p class="card-sub">capacidade total: 100</p>
     </div>
   </div>
 
@@ -139,6 +146,16 @@ const HTML = `<!DOCTYPE html>
   </div>
 
   <p class="section-title">Todas as Reservas</p>
+  <div class="filters">
+    <select id="f-status" class="filter-select">
+      <option value="">Todos os status</option>
+      <option value="reservado">Reservados</option>
+      <option value="pago">Pagos</option>
+      <option value="cancelado">Cancelados</option>
+    </select>
+    <input id="f-search" class="filter-input" type="search" placeholder="Buscar por nome, email ou celular" autocomplete="off">
+    <span id="f-count" class="filter-count"></span>
+  </div>
   <div class="table-wrap">
     <table>
       <thead>
@@ -163,7 +180,8 @@ const HTML = `<!DOCTYPE html>
 
 <script>
 var SENHA = 'sais@2026';
-var CAPACIDADE = 150;
+var CAPACIDADE = 100;
+var lastData = [];
 
 function doLogin() {
   var pwd = document.getElementById('pwd').value;
@@ -207,7 +225,9 @@ function esc(str) {
   return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-async function patchStatus(id, status) {
+async function patchStatus(id, status, nome) {
+  if (status === 'pago' && !confirm('Marcar como PAGO?\n\n' + (nome ? 'Reserva: ' + nome + '\n\n' : '') + 'Isso dispara o email de voucher e a conversão no RD Station — não dá pra desfazer.')) return;
+  if (status === 'cancelado' && !confirm('Cancelar esta reserva?\n\n' + (nome ? 'Reserva: ' + nome : '') )) return;
   try {
     var res = await fetch('/painel-api?auth=' + SENHA, {
       method: 'PATCH',
@@ -227,8 +247,8 @@ async function loadData() {
   try {
     var r = await fetch('/painel-api?auth=' + SENHA);
     if (r.status === 401) { doLogout(); return; }
-    var data = await r.json();
-    renderDash(data);
+    lastData = await r.json();
+    renderDash();
     document.getElementById('last-update').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR');
   } catch(e) {
     document.getElementById('last-update').textContent = 'Erro ao carregar dados';
@@ -236,7 +256,8 @@ async function loadData() {
   }
 }
 
-function renderDash(data) {
+function renderDash() {
+  var data = lastData;
   var ativos = data.filter(function(r) { return r.status !== 'cancelado'; });
   var totalPessoas = ativos.reduce(function(s, r) { return s + (r.pessoas || 0); }, 0);
   var totalReceita = ativos.reduce(function(s, r) { return s + (r.valor || 0); }, 0);
@@ -272,15 +293,30 @@ function renderDash(data) {
   }
   document.getElementById('slots').innerHTML = slotsHtml;
 
+  var statusFilter = (document.getElementById('f-status').value || '').toLowerCase();
+  var searchTerm = (document.getElementById('f-search').value || '').toLowerCase().trim();
+  var filtered = data.filter(function(r) {
+    if (statusFilter && (r.status || '').toLowerCase() !== statusFilter) return false;
+    if (searchTerm) {
+      var hay = ((r.nome||'') + ' ' + (r.email||'') + ' ' + (r.celular||'')).toLowerCase();
+      if (hay.indexOf(searchTerm) === -1) return false;
+    }
+    return true;
+  });
+  var hasFilter = !!(statusFilter || searchTerm);
+  document.getElementById('f-count').textContent =
+    hasFilter ? (filtered.length + ' de ' + data.length) : (data.length + ' reservas');
+
   var rows = '';
-  data.forEach(function(r, i) {
+  filtered.forEach(function(r, i) {
     var utm = [r.utm_source, r.utm_medium, r.utm_campaign].filter(Boolean).join(' / ');
+    var nameAttr = esc(r.nome || '');
     var btns = '';
-    if (r.status !== 'pago') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="pago">Pago</button>';
-    if (r.status !== 'cancelado') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="cancelado">Cancelar</button>';
-    if (r.status !== 'reservado') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="reservado">Reservado</button>';
+    if (r.status !== 'pago') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="pago" data-nome="' + nameAttr + '">Pago</button>';
+    if (r.status !== 'cancelado') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="cancelado" data-nome="' + nameAttr + '">Cancelar</button>';
+    if (r.status !== 'reservado') btns += '<button class="status-btn" data-id="' + esc(r.id) + '" data-st="reservado" data-nome="' + nameAttr + '">Reservado</button>';
     rows += '<tr>' +
-      '<td style="color:var(--muted);font-family:sans-serif;font-size:11px">' + (data.length - i) + '</td>' +
+      '<td style="color:var(--muted);font-family:sans-serif;font-size:11px">' + (filtered.length - i) + '</td>' +
       '<td>' + esc(r.nome || '—') + '</td>' +
       '<td style="font-family:sans-serif;font-size:13px">' + esc(r.email) + '</td>' +
       '<td style="font-family:sans-serif;font-size:13px">' + esc(r.celular || '—') + '</td>' +
@@ -293,15 +329,29 @@ function renderDash(data) {
       '<td style="font-family:sans-serif;font-size:11px;color:var(--muted)">' + esc(utm || '—') + '</td>' +
       '</tr>';
   });
+  var emptyMsg = hasFilter
+    ? 'Nenhum resultado para o filtro · <a href="#" id="f-clear" style="color:var(--gold);text-decoration:underline">limpar filtros</a>'
+    : 'Aguardando primeira reserva';
   document.getElementById('tbody').innerHTML = rows ||
-    '<tr><td colspan="11" style="text-align:center;padding:48px;color:var(--muted);font-family:sans-serif;font-size:13px">Nenhuma reserva encontrada</td></tr>';
+    '<tr><td colspan="11" style="text-align:center;padding:48px;color:var(--muted);font-family:sans-serif;font-size:13px">' + emptyMsg + '</td></tr>';
 }
 
 document.getElementById('tbody').addEventListener('click', function(e) {
+  var clear = e.target.closest('#f-clear');
+  if (clear) {
+    e.preventDefault();
+    document.getElementById('f-status').value = '';
+    document.getElementById('f-search').value = '';
+    renderDash();
+    return;
+  }
   var btn = e.target.closest('.status-btn');
   if (!btn) return;
-  patchStatus(btn.dataset.id, btn.dataset.st);
+  patchStatus(btn.dataset.id, btn.dataset.st, btn.dataset.nome);
 });
+
+document.getElementById('f-status').addEventListener('change', renderDash);
+document.getElementById('f-search').addEventListener('input', renderDash);
 
 if (sessionStorage.getItem('painel_ok') === '1') {
   document.getElementById('login').style.display = 'none';
