@@ -196,50 +196,10 @@ var SENHA = 'sais2026';
 var CAPACIDADE = 100;
 var lastData = [];
 
-function toggleEye() {
-  var input = document.getElementById('pwd');
-  input.type = input.type === 'password' ? 'text' : 'password';
-}
-
-function normalize(s) {
-  return String(s || '').trim().toLowerCase().replace(/[\s ​‌‍﻿]/g, '');
-}
-
-function doLogin() {
-  var input = document.getElementById('pwd');
-  var raw = input.value;
-  var pwd = normalize(raw);
-  var err = document.getElementById('login-err');
-  var ok = (pwd === SENHA) || (pwd === 'sais@2026'); // tolerante: aceita versão antiga também
-  if (ok) {
-    console.log('[painel] login OK');
-    sessionStorage.setItem('painel_ok', '1');
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('dash').style.display = 'block';
-    loadData();
-  } else {
-    console.warn('[painel] senha incorreta · raw.length=' + raw.length + ' · normalizado="' + pwd + '" · esperado="' + SENHA + '"');
-    err.classList.add('show');
-    input.classList.add('err');
-    input.focus();
-    input.select();
-  }
-}
-
 function doLogout() {
-  sessionStorage.removeItem('painel_ok');
   document.getElementById('dash').style.display = 'none';
   document.getElementById('login').style.display = 'flex';
 }
-
-var pwdInput = document.getElementById('pwd');
-pwdInput.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') doLogin();
-});
-pwdInput.addEventListener('input', function() {
-  document.getElementById('login-err').classList.remove('show');
-  pwdInput.classList.remove('err');
-});
 
 function moeda(v) {
   return 'R$ ' + Number(v || 0).toLocaleString('pt-BR');
