@@ -389,6 +389,19 @@ document.getElementById('tbody').addEventListener('click', function(e) {
 document.getElementById('f-status').addEventListener('change', renderDash);
 document.getElementById('f-search').addEventListener('input', renderDash);
 
+// Magic link: #sais2026 ou ?auth=sais2026 loga direto (bypass do form)
+(function checkMagic() {
+  try {
+    var hash = normalize((location.hash || '').slice(1));
+    var qauth = normalize(new URLSearchParams(location.search).get('auth') || '');
+    if (hash === SENHA || qauth === SENHA || hash === 'sais@2026' || qauth === 'sais@2026') {
+      sessionStorage.setItem('painel_ok', '1');
+      history.replaceState({}, '', location.pathname);
+      console.log('[painel] magic-link login OK');
+    }
+  } catch (e) { console.error('[painel] magic-link error', e); }
+})();
+
 if (sessionStorage.getItem('painel_ok') === '1') {
   document.getElementById('login').style.display = 'none';
   document.getElementById('dash').style.display = 'block';
