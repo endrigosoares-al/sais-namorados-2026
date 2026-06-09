@@ -29,6 +29,10 @@ const HTML = `<!DOCTYPE html>
     .login-input { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; font-size: 15px; font-family: inherit; outline: none; transition: border-color .2s }
     .login-input:focus { border-color: var(--gold) }
     .login-input.err { border-color: var(--cancel); box-shadow: 0 0 0 2px rgba(231,76,60,.18) }
+    .pwd-wrap { position: relative }
+    .pwd-wrap .login-input { padding-right: 48px }
+    .pwd-eye { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: var(--gold); font-size: 18px; padding: 8px 12px; cursor: pointer; line-height: 1 }
+    .pwd-eye:hover { color: var(--gold2) }
     .login-btn { width: 100%; margin-top: 16px; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; font-family: sans-serif; cursor: pointer; transition: background .2s, color .2s }
     .login-btn:hover { background: var(--gold); color: var(--bg) }
     .login-error { color: var(--cancel); font-size: 13px; font-family: sans-serif; margin-top: 14px; padding: 10px 12px; border: 1px solid rgba(231,76,60,.4); background: rgba(231,76,60,.08); display: none; line-height: 1.5 }
@@ -102,11 +106,14 @@ const HTML = `<!DOCTYPE html>
     <p class="login-logo">Sais Beach Living Hotel</p>
     <h1 class="login-title">Painel Operacional</h1>
     <p class="login-sub">Dia dos Namorados 2026</p>
-    <input id="pwd" class="login-input" type="password" placeholder="Senha de acesso" autocomplete="current-password">
+    <div class="pwd-wrap">
+      <input id="pwd" class="login-input" type="password" placeholder="Senha de acesso" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" inputmode="text">
+      <button type="button" class="pwd-eye" onclick="toggleEye()" aria-label="Mostrar senha">👁</button>
+    </div>
     <button class="login-btn" onclick="doLogin()">Acessar</button>
     <div id="login-err" class="login-error">
       <b>Senha incorreta.</b><br>
-      Verifique se digitou exatamente <b>sais2026</b> (8 caracteres · tudo minúsculo · sem símbolos).
+      Digite exatamente <b>sais2026</b> (8 caracteres · tudo minúsculo · sem símbolos). Use o botão 👁 pra ver o que digitou.
     </div>
   </div>
 </div>
@@ -189,18 +196,29 @@ var SENHA = 'sais2026';
 var CAPACIDADE = 100;
 var lastData = [];
 
+function toggleEye() {
+  var input = document.getElementById('pwd');
+  input.type = input.type === 'password' ? 'text' : 'password';
+}
+
+function normalize(s) {
+  return String(s || '').trim().toLowerCase().replace(/[\s ​‌‍﻿]/g, '');
+}
+
 function doLogin() {
   var input = document.getElementById('pwd');
-  var pwd = input.value;
+  var raw = input.value;
+  var pwd = normalize(raw);
   var err = document.getElementById('login-err');
-  if (pwd === SENHA) {
+  var ok = (pwd === SENHA) || (pwd === 'sais@2026'); // tolerante: aceita versão antiga também
+  if (ok) {
     console.log('[painel] login OK');
     sessionStorage.setItem('painel_ok', '1');
     document.getElementById('login').style.display = 'none';
     document.getElementById('dash').style.display = 'block';
     loadData();
   } else {
-    console.warn('[painel] senha incorreta · digitado length=' + pwd.length + ' · esperado length=' + SENHA.length);
+    console.warn('[painel] senha incorreta · raw.length=' + raw.length + ' · normalizado="' + pwd + '" · esperado="' + SENHA + '"');
     err.classList.add('show');
     input.classList.add('err');
     input.focus();

@@ -1,11 +1,13 @@
 const SENHA       = 'sais2026';
+const SENHAS_OK   = new Set(['sais2026', 'sais@2026']); // tolerante na transição
 const RDS_API_KEY = 'ZjYlPgOOuAATeDCrdiOcbSTVowlXHcbewjgk';
 const RESEND_KEY  = 're_CBLL7vdE_FqJpLJbijn7ojRbPt41Adxd5';
 const FROM_EMAIL  = 'Sais Beach Living Hotel <reservas@saishotel.com.br>';
 
 export async function onRequest({ request, env }) {
   const url = new URL(request.url);
-  if (url.searchParams.get('auth') !== SENHA) {
+  const auth = (url.searchParams.get('auth') || '').trim().toLowerCase();
+  if (!SENHAS_OK.has(auth)) {
     return json({ error: 'unauthorized' }, 401);
   }
 
