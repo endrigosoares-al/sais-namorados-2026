@@ -7,7 +7,8 @@ const FROM_EMAIL  = 'Sais Beach Living Hotel <reservas@saishotel.com.br>';
 export async function onRequest({ request, env }) {
   const url = new URL(request.url);
   const auth = (url.searchParams.get('auth') || '').trim().toLowerCase();
-  if (!SENHAS_OK.has(auth)) {
+  // GET livre (dashboard visual) · PATCH/DELETE exigem senha (proteção contra mutação acidental)
+  if (request.method !== 'GET' && !SENHAS_OK.has(auth)) {
     return json({ error: 'unauthorized' }, 401);
   }
 
