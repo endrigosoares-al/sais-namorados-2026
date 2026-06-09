@@ -222,8 +222,8 @@ function esc(str) {
 }
 
 async function patchStatus(id, status, nome) {
-  if (status === 'pago' && !confirm('Marcar como PAGO?\n\n' + (nome ? 'Reserva: ' + nome + '\n\n' : '') + 'Isso dispara o email de voucher e a conversão no RD Station — não dá pra desfazer.')) return;
-  if (status === 'cancelado' && !confirm('Cancelar esta reserva?\n\n' + (nome ? 'Reserva: ' + nome : '') )) return;
+  if (status === 'pago' && !confirm('Marcar como PAGO?\\n\\n' + (nome ? 'Reserva: ' + nome + '\\n\\n' : '') + 'Isso dispara o email de voucher e a conversão no RD Station — não dá pra desfazer.')) return;
+  if (status === 'cancelado' && !confirm('Cancelar esta reserva?\\n\\n' + (nome ? 'Reserva: ' + nome : '') )) return;
   try {
     var res = await fetch('/painel-api?auth=' + SENHA, {
       method: 'PATCH',
