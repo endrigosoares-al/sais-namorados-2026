@@ -28,9 +28,12 @@ const HTML = `<!DOCTYPE html>
     .login-sub { font-size: 14px; color: var(--muted); font-family: sans-serif; letter-spacing: .1em; margin-bottom: 32px }
     .login-input { width: 100%; background: var(--bg); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; font-size: 15px; font-family: inherit; outline: none; transition: border-color .2s }
     .login-input:focus { border-color: var(--gold) }
+    .login-input.err { border-color: var(--cancel); box-shadow: 0 0 0 2px rgba(231,76,60,.18) }
     .login-btn { width: 100%; margin-top: 16px; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; font-family: sans-serif; cursor: pointer; transition: background .2s, color .2s }
     .login-btn:hover { background: var(--gold); color: var(--bg) }
-    .login-error { color: var(--cancel); font-size: 13px; font-family: sans-serif; margin-top: 12px; display: none }
+    .login-error { color: var(--cancel); font-size: 13px; font-family: sans-serif; margin-top: 14px; padding: 10px 12px; border: 1px solid rgba(231,76,60,.4); background: rgba(231,76,60,.08); display: none; line-height: 1.5 }
+    .login-error.show { display: block }
+    .login-error b { color: #ff8a7a }
 
     /* DASHBOARD */
     #dash { display: none; padding: 32px 40px; max-width: 1400px; margin: 0 auto }
@@ -101,7 +104,10 @@ const HTML = `<!DOCTYPE html>
     <p class="login-sub">Dia dos Namorados 2026</p>
     <input id="pwd" class="login-input" type="password" placeholder="Senha de acesso" autocomplete="current-password">
     <button class="login-btn" onclick="doLogin()">Acessar</button>
-    <p id="login-err" class="login-error">Senha incorreta</p>
+    <div id="login-err" class="login-error">
+      <b>Senha incorreta.</b><br>
+      Verifique se digitou exatamente <b>sais2026</b> (8 caracteres · tudo minúsculo · sem símbolos).
+    </div>
   </div>
 </div>
 
@@ -179,19 +185,26 @@ const HTML = `<!DOCTYPE html>
 </div>
 
 <script>
-var SENHA = 'sais@2026';
+var SENHA = 'sais2026';
 var CAPACIDADE = 100;
 var lastData = [];
 
 function doLogin() {
-  var pwd = document.getElementById('pwd').value;
+  var input = document.getElementById('pwd');
+  var pwd = input.value;
+  var err = document.getElementById('login-err');
   if (pwd === SENHA) {
+    console.log('[painel] login OK');
     sessionStorage.setItem('painel_ok', '1');
     document.getElementById('login').style.display = 'none';
     document.getElementById('dash').style.display = 'block';
     loadData();
   } else {
-    document.getElementById('login-err').style.display = 'block';
+    console.warn('[painel] senha incorreta · digitado length=' + pwd.length + ' · esperado length=' + SENHA.length);
+    err.classList.add('show');
+    input.classList.add('err');
+    input.focus();
+    input.select();
   }
 }
 
@@ -201,8 +214,13 @@ function doLogout() {
   document.getElementById('login').style.display = 'flex';
 }
 
-document.getElementById('pwd').addEventListener('keydown', function(e) {
+var pwdInput = document.getElementById('pwd');
+pwdInput.addEventListener('keydown', function(e) {
   if (e.key === 'Enter') doLogin();
+});
+pwdInput.addEventListener('input', function() {
+  document.getElementById('login-err').classList.remove('show');
+  pwdInput.classList.remove('err');
 });
 
 function moeda(v) {

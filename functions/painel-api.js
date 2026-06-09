@@ -1,4 +1,4 @@
-const SENHA       = 'sais@2026';
+const SENHA       = 'sais2026';
 const RDS_API_KEY = 'ZjYlPgOOuAATeDCrdiOcbSTVowlXHcbewjgk';
 const RESEND_KEY  = 're_CBLL7vdE_FqJpLJbijn7ojRbPt41Adxd5';
 const FROM_EMAIL  = 'Sais Beach Living Hotel <reservas@saishotel.com.br>';
